@@ -1,10 +1,10 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">首页</router-link> |
-      <router-link to="/login">登录</router-link>
-    </div>
-    <router-view />
+    <header></header>
+    <!-- <div id="nav">
+      <router-link to="/"></router-link>
+    </div> -->
+    <router-view></router-view>
   </div>
 </template>
 
@@ -23,13 +23,18 @@ a {
     text-decoration: none;
   }
 }
-#app {
-  margin: 100px auto;
-  text-align: center;
-}
+
 ul,
 li,
 ol {
   list-style: none;
+}
+body {
+  background-color: #f2f2f2;
+}
+header {
+  width: 100vw;
+  height: 24px;
+  background-color: rgba(117, 117, 117, 1);
 }
 </style>
