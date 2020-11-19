@@ -9,22 +9,25 @@
     <AuthInput
       placeholder="请输入用户名"
       type="text"
-      :rule="/^.{6}$/"
+      :rule="/^.{3,12}$/"
       errMsg="请输入正确的用户名"
+      @setVal="setUsername"
     />
     <AuthInput
       placeholder="请输入昵称"
       type="text"
-      :rule="/^[\u4e00-\u9fa5]$/"
+      :rule="/^.{3,12}$/"
       errMsg="请输入合法的昵称"
+      @setVal="setNickname"
     />
     <AuthInput
       placeholder="请输入密码"
       type="password"
-      :rule="/^\d{6,12}$/"
-      errMsg="密码必须是6到12位的数字"
+      :rule="/^\d{3,12}$/"
+      errMsg="密码必须是3到12位的数字"
+      @setVal="setPassword"
     />
-    <AuthBtn btnText="注册" />
+    <AuthBtn btnText="注册" @click.native="register" />
   </div>
 </template>
 
@@ -34,6 +37,41 @@ import AuthBtn from "../components/AuthBtn";
 
 export default {
   components: { AuthInput, AuthBtn },
+  data() {
+    return {
+      username: "",
+      password: "",
+      nickname: "",
+    };
+  },
+  methods: {
+    setUsername(newVal) {
+      this.username = newVal;
+    },
+    setNickname(newVal) {
+      this.nickname = newVal;
+    },
+    setPassword(newVal) {
+      this.password = newVal;
+    },
+    register() {
+      this.$axios({
+        method: "post",
+        url: "http://157.122.54.189:9083/register",
+        data: {
+          username: this.username,
+          nickname: this.nickname,
+          password: this.password,
+        },
+      }).then((res) => {
+        if (res.data.message === "注册成功") {
+          this.$toast.success("注册成功");
+        } else {
+          this.$toast.fail("用户名已存在");
+        }
+      });
+    },
+  },
 };
 </script>
 

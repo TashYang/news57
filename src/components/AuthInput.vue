@@ -23,22 +23,20 @@ export default {
   props: ["placeholder", "type", "rule", "errMsg"],
   watch: {
     value(newVal) {
+      // 校验输入格式
       if (this.rule.test(newVal)) {
         this.isOk = true;
       } else {
         this.isOk = false;
       }
+      // 传value值给父组件
+      this.$emit("setVal", newVal);
     },
   },
   methods: {
     showErr() {
       if (!this.isOk) {
-        // this.$toast({
-        //   message: this.errMsg,
-        //   // position可设置显示位置，默认是middle
-        //   // position: "top",
-        // });
-        this.$toast.fail(this.errMsg);
+        this.$toast(this.errMsg);
       }
     },
   },

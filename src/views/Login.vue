@@ -9,16 +9,18 @@
     <AuthInput
       placeholder="请输入用户名"
       type="text"
-      :rule="/^.{6}$/"
+      :rule="/^.{3,12}$/"
       errMsg="请输入正确的用户名"
+      @setVal="setUsername"
     />
     <AuthInput
       placeholder="请输入密码"
       type="password"
-      :rule="/^\d{6,12}$/"
-      errMsg="密码必须是6到12位的数字"
+      :rule="/^\d{3,12}$/"
+      errMsg="密码必须是3到12位的数字"
+      @setVal="setPassword"
     />
-    <AuthBtn btnText="登录" />
+    <AuthBtn btnText="登录" @click.native="login" />
   </div>
 </template>
 
@@ -26,13 +28,42 @@
 import AuthInput from "../components/AuthInput";
 import AuthBtn from "../components/AuthBtn";
 export default {
+  data() {
+    return {
+      username: "",
+      password: "",
+    };
+  },
   components: {
     AuthInput,
     AuthBtn,
   },
-  // methods:{
-
-  // }
+  methods: {
+    // 接受值
+    setUsername(newVal) {
+      this.username = newVal;
+    },
+    setPassword(newVal) {
+      this.password = newVal;
+      console.log(this.password);
+    },
+    login() {
+      this.$axios({
+        method: "post",
+        url: "http://157.122.54.189:9083/login",
+        data: {
+          username: this.username,
+          password: this.password,
+        },
+      }).then((res) => {
+        if (res.data.message === "登录成功") {
+          this.$toast.success("登录成功");
+        } else {
+          this.$toast.fail("用户名或密码不存在");
+        }
+      });
+    },
+  },
 };
 </script>
 
