@@ -48,20 +48,25 @@ export default {
       console.log(this.password);
     },
     login() {
-      this.$axios({
-        method: "post",
-        url: "http://157.122.54.189:9083/login",
-        data: {
-          username: this.username,
-          password: this.password,
-        },
-      }).then((res) => {
-        if (res.data.message === "登录成功") {
-          this.$toast.success("登录成功");
-        } else {
-          this.$toast.fail("用户名或密码不存在");
-        }
-      });
+      if (this.username && this.password) {
+        this.$axios({
+          method: "post",
+          url: "http://157.122.54.189:9083/login",
+          data: {
+            username: this.username,
+            password: this.password,
+          },
+        }).then((res) => {
+          console.log(res);
+          if (res.data.message === "登录成功") {
+            this.$toast.success("登录成功");
+          } else {
+            this.$toast.fail("用户名或密码不存在");
+          }
+        });
+      } else {
+        this.$toast.fail("用户名或密码不能为空");
+      }
     },
   },
 };

@@ -55,21 +55,25 @@ export default {
       this.password = newVal;
     },
     register() {
-      this.$axios({
-        method: "post",
-        url: "http://157.122.54.189:9083/register",
-        data: {
-          username: this.username,
-          nickname: this.nickname,
-          password: this.password,
-        },
-      }).then((res) => {
-        if (res.data.message === "注册成功") {
-          this.$toast.success("注册成功");
-        } else {
-          this.$toast.fail("用户名已存在");
-        }
-      });
+      if (this.username && this.nickname && this.password) {
+        this.$axios({
+          method: "post",
+          url: "http://157.122.54.189:9083/register",
+          data: {
+            username: this.username,
+            nickname: this.nickname,
+            password: this.password,
+          },
+        }).then((res) => {
+          if (res.data.message === "注册成功") {
+            this.$toast.success("注册成功");
+          } else {
+            this.$toast.fail("用户名已存在");
+          }
+        });
+      } else {
+        this.$toast.fail("输入不能为空");
+      }
     },
   },
 };
