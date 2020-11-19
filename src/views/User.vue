@@ -14,40 +14,20 @@
         <span class="iconfont iconjiantou1"></span>
       </div>
     </div>
-    <ul class="mine">
-      <li class="myFollow">
-        <p>
-          我的关注
-          <i>关注的用户</i>
-          <span class="iconfont iconjiantou1"></span>
-        </p>
-      </li>
-      <li class="myComment">
-        <p>
-          我的跟帖
-          <i>跟帖/回复</i>
-          <span class="iconfont iconjiantou1"></span>
-        </p>
-      </li>
-      <li class="myCollection">
-        <p>
-          我的收藏
-          <i>文章/视频</i>
-          <span class="iconfont iconjiantou1"></span>
-        </p>
-      </li>
-      <li class="setting">
-        <p>
-          设置
-          <span class="iconfont iconjiantou1"></span>
-        </p>
-      </li>
-    </ul>
+    <Info text="我的关注" message="关注的用户"></Info>
+    <Info text="我的跟帖" message="跟帖/回复"></Info>
+    <Info text="我的收藏" message="文章/视频"></Info>
+    <Info text="设置"></Info>
   </div>
 </template>
 
 <script>
-export default {};
+import Info from "../components/Info";
+export default {
+  components: {
+    Info,
+  },
+};
 </script>
 
 <style lang="less" scoped>
@@ -86,29 +66,7 @@ export default {};
     }
   }
 }
-.mine {
-  padding-left: 20/360 * 100vw;
 
-  li {
-    border-bottom: 2/360 * 100vw solid #e4e4e4;
-    padding: 10/360 * 100vw 0;
-    p {
-      position: relative;
-      font-family: "Roboto Regular", "Roboto";
-      font-weight: 400;
-      font-style: normal;
-      font-size: 14/360 * 100vw;
-      color: #333333;
-      i {
-        position: absolute;
-        right: 30/360 * 100vw;
-        font-style: normal;
-        font-size: 13/360 * 100vw;
-        color: rgba(148, 148, 148, 0.866666666666667);
-      }
-    }
-  }
-}
 .iconxingbienan {
   font-size: 18/360 * 100vw;
   margin-right: 3/360 * 100vw;
