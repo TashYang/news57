@@ -33,7 +33,12 @@ export default {
   methods: {
     showErr() {
       if (!this.isOk) {
-        alert(this.errMsg);
+        // this.$toast({
+        //   message: this.errMsg,
+        //   // position可设置显示位置，默认是middle
+        //   // position: "top",
+        // });
+        this.$toast.fail(this.errMsg);
       }
     },
   },

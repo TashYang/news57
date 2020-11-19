@@ -30,6 +30,9 @@ export default {
     AuthInput,
     AuthBtn,
   },
+  // methods:{
+
+  // }
 };
 </script>
 
