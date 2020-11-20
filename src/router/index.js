@@ -3,8 +3,8 @@ import VueRouter from 'vue-router'
 import Home from '@/views/Home.vue'
 import Login from '@/views/Login.vue'
 import Register from '../views/Register'
-import User from '../views/User'
-import Edit from '../views/Edit'
+import User from '../views/profile/User.vue'
+import Edit from '../views/profile/Edit.vue'
 
 Vue.use(VueRouter)
 
@@ -34,6 +34,19 @@ const routes = [
 
 const router = new VueRouter({
   routes
+})
+
+// 设置全局路由
+router.beforeEach((to, from, next) => {
+  // 如果去的路径是个人中心页，验证是否有token
+  if (to.path === "/user") {
+    if (localStorage.getItem('token')) {
+      return next()
+    } else {
+      return router.push('/login')
+    }
+  }
+  return next()
 })
 
 export default router

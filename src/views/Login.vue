@@ -57,8 +57,14 @@ export default {
             password: this.password,
           },
         }).then((res) => {
-          if (res.data.message === "登录成功") {
+          const { message, data } = res.data;
+          if (message === "登录成功") {
             this.$toast.success("登录成功");
+            // 存储token
+            localStorage.setItem("token", data.token);
+            localStorage.setItem("userId", data.user.id);
+            // 跳转页面
+            this.$router.push("/user");
           } else {
             this.$toast.fail("用户名或密码不存在");
           }
