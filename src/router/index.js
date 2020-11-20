@@ -39,14 +39,15 @@ const router = new VueRouter({
 // 设置全局路由
 router.beforeEach((to, from, next) => {
   // 如果去的路径是个人中心页，验证是否有token
-  if (to.path === "/user") {
+  if (to.path === "/user" || to.path === "/edit") {
     if (localStorage.getItem('token')) {
       return next()
     } else {
-      return router.push('/login')
+      // 避免相同页面跳回自己的报错 .catch
+      return router.push('/login').catch((err) => { })
     }
   }
-  return next()
+  return next();
 })
 
 export default router
