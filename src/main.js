@@ -16,6 +16,7 @@ Vue.config.productionTip = false
 // 3. 注册 vant ui 组件库的标签
 Vue.use(Vant)
 
+//基准路径
 
 new Vue({
   router,

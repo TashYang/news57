@@ -5,6 +5,7 @@ import Login from '@/views/Login.vue'
 import Register from '../views/Register'
 import User from '../views/profile/User.vue'
 import Edit from '../views/profile/Edit.vue'
+import Follow from '@/views//profile/Follow'
 
 Vue.use(VueRouter)
 
@@ -13,22 +14,31 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home
-  }, {
+  },
+  {
     path: '/login',
     name: "Login",
     component: Login,
-  }, {
+  },
+  {
     path: '/register',
     name: 'Register',
     component: Register,
-  }, {
+  },
+  {
     path: '/user',
     name: 'User',
     component: User,
-  }, {
+  },
+  {
     path: '/edit',
     name: "Edit",
     component: Edit,
+  },
+  {
+    path: '/follow',
+    name: 'Follow',
+    component: Follow,
   }
 ]
 
