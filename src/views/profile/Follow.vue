@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <TitleBar text="我的关注" />
+    <TitleBar text="我的关注" @click.native="backUser" />
     <MyFollow />
     <MyFollow />
     <MyFollow />
@@ -14,6 +14,11 @@ export default {
   components: {
     MyFollow,
     TitleBar,
+  },
+  methods: {
+    backUser() {
+      this.$router.push("/user");
+    },
   },
 };
 </script>

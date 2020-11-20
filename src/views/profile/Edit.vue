@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="edit">
-      <TitleBar text="编辑资料" @click.native="retunUser" />
+      <TitleBar text="编辑资料" @click.native="backUser" />
       <img src="@/assets/1.png" alt="" class="userImg" />
     </div>
 
@@ -38,7 +38,7 @@ export default {
     });
   },
   methods: {
-    retunUser() {
+    backUser() {
       this.$router.push("/user");
     },
   },

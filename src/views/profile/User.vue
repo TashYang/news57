@@ -23,19 +23,21 @@
       </div>
       <div class="iconfont iconjiantou1" @click="goEdit"></div>
     </div>
-    <ProfileBar text="我的关注" message="关注的用户" />
+    <ProfileBar text="我的关注" message="关注的用户" @click.native="goFollow" />
     <ProfileBar text="我的跟帖" message="跟帖/回复" />
     <ProfileBar text="我的收藏" message="文章/视频" />
     <ProfileBar text="设置" />
-    <ProfileBar text="退出" @click.native="logout" />
+    <AuthBtn btnText="退出" @click.native="logout" />
   </div>
 </template>
 
 <script>
 import ProfileBar from "@/components/ProfileBar";
+import AuthBtn from "@/components/AuthBtn";
 export default {
   components: {
     ProfileBar,
+    AuthBtn,
   },
   data() {
     return {
@@ -65,11 +67,17 @@ export default {
     goEdit() {
       this.$router.push("/edit");
     },
+    goFollow() {
+      this.$router.push("/follow");
+    },
   },
 };
 </script>
 
 <style lang="less" scoped>
+.container {
+  position: relative;
+}
 .user {
   display: flex;
   align-items: center;
