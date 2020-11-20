@@ -32,7 +32,7 @@ body {
 }
 header {
   width: 100vw;
-  height: 24px;
+  height: 24/360 * 100vw;
   background-color: rgba(117, 117, 117, 1);
 }
 </style>

@@ -1,11 +1,7 @@
 <template>
   <div class="container">
     <div class="edit">
-      <div class="top">
-        <span class="iconfont iconjiantou2" @click="retunUser"></span>
-        <div class="title">编辑资料</div>
-      </div>
-
+      <TitleBar text="编辑资料" @click.native="retunUser" />
       <img src="@/assets/1.png" alt="" class="userImg" />
     </div>
 
@@ -17,9 +13,11 @@
 
 <script>
 import ProfileBar from "@/components/ProfileBar";
+import TitleBar from "@/components/TitleBar";
 export default {
   components: {
     ProfileBar,
+    TitleBar,
   },
   data() {
     return {
@@ -49,7 +47,6 @@ export default {
 
 <style lang="less" scoped>
 .edit {
-  padding: 20 /360 * 100vw;
   display: flex;
   flex-direction: column;
 
