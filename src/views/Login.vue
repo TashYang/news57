@@ -57,7 +57,6 @@ export default {
             password: this.password,
           },
         }).then((res) => {
-          console.log(res);
           if (res.data.message === "登录成功") {
             this.$toast.success("登录成功");
           } else {

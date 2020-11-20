@@ -27,6 +27,12 @@ export default {
   components: {
     Info,
   },
+  // mounted(id) {
+  //   this.$axios({
+  //     url: "http://157.122.54.189:9083/user/:id",
+  //     data: { id },
+  //   });
+  // },
 };
 </script>
 
