@@ -59,6 +59,7 @@ export default {
       localStorage.removeItem("token");
       localStorage.removeItem("userId");
       this.$toast("退出成功");
+      // 退出后直接倒回登录页，不能再返回到当前页
       this.$router.replace("/login");
     },
     goEdit() {

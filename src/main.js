@@ -11,6 +11,7 @@ import axios from 'axios'
 // 原型绑定 axios
 Vue.prototype.$axios = axios
 
+
 Vue.config.productionTip = false
 
 // 3. 注册 vant ui 组件库的标签
