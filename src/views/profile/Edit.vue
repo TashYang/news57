@@ -8,23 +8,31 @@
     <ProfileBar
       text="昵称"
       :message="userInfo.nickname"
-      @click.native="isShow = true"
+      @click.native="isShowNickname = true"
     />
     <ProfileBar text="密码" message="******" />
     <ProfileBar
       text="性别"
       :message="userInfo.gender === 1 ? '猛男' : '仙女'"
+      @click.native="isShowGender = true"
     />
 
     <!-- 弹出框 -->
     <van-dialog
-      v-model="isShow"
+      v-model="isShowNickname"
       title="修改昵称"
       show-cancel-button
       @confirm="setNickname"
     >
       <van-field v-model="newNickName" placeholder="请输入昵称" />
     </van-dialog>
+
+    <van-action-sheet
+      v-model="isShowGender"
+      :actions="actions"
+      cancel-text="取消"
+      close-on-click-action
+    />
   </div>
 </template>
 
@@ -39,16 +47,18 @@ export default {
   data() {
     return {
       userInfo: {},
-      isShow: false,
+      isShowNickname: false,
       newNickName: "",
+      isShowGender: false,
+      actions: [{ name: "猛男" }, { name: "仙女" }],
     };
   },
   created() {
     this.loadPage();
   },
   methods: {
+    // 获取数据
     loadPage() {
-      // 获取数据先
       this.$axios({
         url: "/user/" + localStorage.getItem("userId"),
         headers: { Authorization: localStorage.getItem("token") },
@@ -59,6 +69,7 @@ export default {
         }
       });
     },
+    // 修改昵称
     setNickname() {
       this.$axios({
         method: "post",
@@ -73,6 +84,21 @@ export default {
         this.newNickName = "";
       });
     },
+    // 修改性别
+    // setGender(index) {
+    //   this.$axios({
+    //     method: "post",
+    //     url: "/user_update/" + localStorage.getItem("userId"),
+    //     headers: { Authorization: localStorage.getItem("token") },
+    //     data: {
+    //       gender: this.actions[index].name,
+    //     },
+    //   }).then((res) => {
+    //     console.log(res);
+
+    //     // this.loadPage();
+    //   });
+    // },
   },
 };
 </script>
