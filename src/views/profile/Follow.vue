@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <TitleBar text="我的关注" @click.native="backUser" />
+    <TopNav title="我的关注" @click.native="backUser" />
     <MyFollow />
     <MyFollow />
     <MyFollow />
@@ -9,11 +9,11 @@
 
 <script>
 import MyFollow from "@/components/MyFollow";
-import TitleBar from "@/components/TitleBar";
+import TopNav from "@/components/TopNav";
 export default {
   components: {
     MyFollow,
-    TitleBar,
+    TopNav,
   },
   methods: {
     backUser() {

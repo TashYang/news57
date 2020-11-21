@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="edit">
-      <TitleBar text="编辑资料" @click.native="backUser" />
+      <TopNav title="编辑资料" />
       <img src="@/assets/1.png" alt="" class="userImg" />
     </div>
 
@@ -13,11 +13,11 @@
 
 <script>
 import ProfileBar from "@/components/ProfileBar";
-import TitleBar from "@/components/TitleBar";
+import TopNav from "@/components/TopNav";
 export default {
   components: {
     ProfileBar,
-    TitleBar,
+    TopNav,
   },
   data() {
     return {
@@ -36,11 +36,6 @@ export default {
         this.userInfo = data;
       }
     });
-  },
-  methods: {
-    backUser() {
-      this.$router.push("/user");
-    },
   },
 };
 </script>

@@ -1,6 +1,7 @@
 <template>
   <div class="container">
-    <div class="user">
+    <!-- 上半部 -->
+    <div class="user" @click="$router.push('/edit')">
       <img
         v-if="userInfo.head_img"
         :src="' http://157.122.54.189:9083' + userInfo.head_img"
@@ -21,9 +22,13 @@
         </div>
         <div class="date">2020-11-20</div>
       </div>
-      <div class="iconfont iconjiantou1" @click="goEdit"></div>
+      <div class="iconfont iconjiantou1"></div>
     </div>
-    <ProfileBar text="我的关注" message="关注的用户" @click.native="goFollow" />
+    <ProfileBar
+      text="我的关注"
+      message="关注的用户"
+      @click.native="$router.push('/edit')"
+    />
     <ProfileBar text="我的跟帖" message="跟帖/回复" />
     <ProfileBar text="我的收藏" message="文章/视频" />
     <ProfileBar text="设置" />
@@ -64,12 +69,6 @@ export default {
       this.$toast("退出成功");
       // 退出后直接倒回登录页，不能再返回到当前页
       this.$router.replace("/login");
-    },
-    goEdit() {
-      this.$router.push("/edit");
-    },
-    goFollow() {
-      this.$router.push("/follow");
     },
   },
 };
