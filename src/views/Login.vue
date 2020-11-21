@@ -65,8 +65,6 @@ export default {
             localStorage.setItem("userId", data.user.id);
             // 跳转页面
             this.$router.push("/user");
-          } else {
-            this.$toast.fail("用户名或密码不存在");
           }
         });
       } else {

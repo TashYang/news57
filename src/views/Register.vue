@@ -67,8 +67,6 @@ export default {
         }).then((res) => {
           if (res.data.message === "注册成功") {
             this.$toast.success("注册成功");
-          } else {
-            this.$toast.fail("用户名已存在");
           }
         });
       } else {

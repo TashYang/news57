@@ -6,8 +6,11 @@
     </div>
 
     <ProfileBar text="昵称" :message="userInfo.nickname" />
-    <ProfileBar text="密码" :message="userInfo.password" />
-    <ProfileBar text="性别" :message="userInfo.gender === 1 ? '男' : '女'" />
+    <ProfileBar text="密码" message="******" />
+    <ProfileBar
+      text="性别"
+      :message="userInfo.gender === 1 ? '猛男' : '仙女'"
+    />
   </div>
 </template>
 
@@ -32,7 +35,6 @@ export default {
     }).then((res) => {
       const { message, data } = res.data;
       if (message === "获取成功") {
-        console.log(res);
         this.userInfo = data;
       }
     });
