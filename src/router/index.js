@@ -12,33 +12,36 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'Home',
     component: Home
   },
   {
     path: '/login',
-    name: "Login",
     component: Login,
   },
   {
     path: '/register',
-    name: 'Register',
     component: Register,
   },
   {
     path: '/user',
-    name: 'User',
     component: User,
+    meta: {
+      needAuth: true
+    }
   },
   {
     path: '/edit',
-    name: "Edit",
     component: Edit,
+    meta: {
+      needAuth: true
+    }
   },
   {
     path: '/follow',
-    name: 'Follow',
     component: Follow,
+    meta: {
+      needAuth: true
+    }
   }
 ]
 
@@ -49,7 +52,7 @@ const router = new VueRouter({
 // 设置全局路由，拦截所有跳转，执行回调函数
 router.beforeEach((to, from, next) => {
   // 如果去的路径是个人中心页，验证是否有token
-  if (to.path === "/user" || to.path === "/edit") {
+  if (to.meta.needAuth) {
     if (localStorage.getItem('token')) {
       // 存在token就放行
       return next()
