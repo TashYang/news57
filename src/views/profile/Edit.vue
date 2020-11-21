@@ -5,12 +5,26 @@
       <img src="@/assets/1.png" alt="" class="userImg" />
     </div>
 
-    <ProfileBar text="昵称" :message="userInfo.nickname" />
+    <ProfileBar
+      text="昵称"
+      :message="userInfo.nickname"
+      @click.native="isShow = true"
+    />
     <ProfileBar text="密码" message="******" />
     <ProfileBar
       text="性别"
       :message="userInfo.gender === 1 ? '猛男' : '仙女'"
     />
+
+    <!-- 弹出框 -->
+    <van-dialog
+      v-model="isShow"
+      title="修改昵称"
+      show-cancel-button
+      @confirm="setNickname"
+    >
+      <van-field v-model="newNickName" placeholder="请输入昵称" />
+    </van-dialog>
   </div>
 </template>
 
@@ -25,19 +39,40 @@ export default {
   data() {
     return {
       userInfo: {},
+      isShow: false,
+      newNickName: "",
     };
   },
   created() {
-    // 获取数据先
-    this.$axios({
-      url: "/user/" + localStorage.getItem("userId"),
-      headers: { Authorization: localStorage.getItem("token") },
-    }).then((res) => {
-      const { message, data } = res.data;
-      if (message === "获取成功") {
-        this.userInfo = data;
-      }
-    });
+    this.loadPage();
+  },
+  methods: {
+    loadPage() {
+      // 获取数据先
+      this.$axios({
+        url: "/user/" + localStorage.getItem("userId"),
+        headers: { Authorization: localStorage.getItem("token") },
+      }).then((res) => {
+        const { message, data } = res.data;
+        if (message === "获取成功") {
+          this.userInfo = data;
+        }
+      });
+    },
+    setNickname() {
+      this.$axios({
+        method: "post",
+        url: "/user_update/" + localStorage.getItem("userId"),
+        headers: { Authorization: localStorage.getItem("token") },
+        data: {
+          nickname: this.newNickName,
+        },
+      }).then((res) => {
+        this.loadPage();
+        // 确认后清空掉输入框的数据
+        this.newNickName = "";
+      });
+    },
   },
 };
 </script>
