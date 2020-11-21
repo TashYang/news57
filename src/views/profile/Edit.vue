@@ -27,7 +27,7 @@ export default {
   created() {
     // 获取数据先
     this.$axios({
-      url: "http://157.122.54.189:9083/user/" + localStorage.getItem("userId"),
+      url: "/user/" + localStorage.getItem("userId"),
       headers: { Authorization: localStorage.getItem("token") },
     }).then((res) => {
       const { message, data } = res.data;

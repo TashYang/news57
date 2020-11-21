@@ -11,6 +11,8 @@ import axios from 'axios'
 // 原型绑定 axios
 Vue.prototype.$axios = axios
 
+// 设置基准路径
+axios.defaults.baseURL = " http://157.122.54.189:9083"
 
 Vue.config.productionTip = false
 

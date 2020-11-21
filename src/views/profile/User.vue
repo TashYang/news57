@@ -4,7 +4,7 @@
     <div class="user" @click="$router.push('/edit')">
       <img
         v-if="userInfo.head_img"
-        :src="' http://157.122.54.189:9083' + userInfo.head_img"
+        :src="$axios.defaults.baseURL + userInfo.head_img"
         alt=""
         class="userImg"
       />
@@ -52,7 +52,7 @@ export default {
   },
   created() {
     this.$axios({
-      url: "http://157.122.54.189:9083/user/" + localStorage.getItem("userId"),
+      url: "/user/" + localStorage.getItem("userId"),
       headers: { Authorization: localStorage.getItem("token") },
     }).then((res) => {
       const { message, data } = res.data;
