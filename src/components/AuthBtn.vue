@@ -1,10 +1,10 @@
 <template>
-  <div class="btn">{{ btnText }}</div>
+  <div class="btn" :class="myClass">{{ btnText }}</div>
 </template>
 
 <script>
 export default {
-  props: ["btnText"],
+  props: ["btnText", "myClass"],
 };
 </script>
 
@@ -18,5 +18,11 @@ export default {
   font-size: 18/360 * 100vw;
   text-align: center;
   color: #fff;
+}
+.btn2 {
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  margin-top: 0;
 }
 </style>

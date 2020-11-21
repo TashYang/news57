@@ -27,7 +27,7 @@
     <ProfileBar text="我的跟帖" message="跟帖/回复" />
     <ProfileBar text="我的收藏" message="文章/视频" />
     <ProfileBar text="设置" />
-    <AuthBtn btnText="退出" @click.native="logout" />
+    <AuthBtn btnText="退出" @click.native="logout" :class="myClass" />
   </div>
 </template>
 
@@ -42,6 +42,7 @@ export default {
   data() {
     return {
       userInfo: {},
+      myClass: "btn2",
     };
   },
   created() {
@@ -75,9 +76,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.container {
-  position: relative;
-}
 .user {
   display: flex;
   align-items: center;
