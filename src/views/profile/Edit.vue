@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <div class="edit">
-      <TopNav title="编辑资料" />
+    <TopNav title="编辑资料" />
+    <div class="imgWrapper">
       <img src="@/assets/1.png" alt="" class="userImg" />
     </div>
 
@@ -43,28 +43,16 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.edit {
+.imgWrapper {
   display: flex;
-  flex-direction: column;
-
-  .top {
-    display: flex;
-    color: rgba(148, 148, 148, 0.866666666666667);
-
-    .title {
-      flex-grow: 1;
-      text-align: center;
-      color: #333;
-      font-weight: 700;
-      font-size: 14/360 * 100vw;
-    }
-  }
-
+  justify-content: center;
+  margin: 20/360 * 100vw 0;
   .userImg {
-    margin: 20/360 * 100vw auto;
     width: 70/360 * 100vw;
     height: 70/360 * 100vw;
     border-radius: 50%;
+    // 让照片平铺
+    object-fit: cover;
   }
 }
 </style>
