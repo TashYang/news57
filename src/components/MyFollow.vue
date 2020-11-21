@@ -5,7 +5,7 @@
       <div class="newsTitle">火星新闻联播</div>
       <div class="newsDate">2020-11-20</div>
     </div>
-    <div class="unfollow">取消关注</div>
+    <button class="unfollow">取消关注</button>
   </div>
 </template>
 

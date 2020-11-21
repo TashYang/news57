@@ -29,9 +29,10 @@
 
     <van-action-sheet
       v-model="isShowGender"
-      :actions="actions"
+      :actions="genderList"
       cancel-text="取消"
       close-on-click-action
+      @select="setGender"
     />
   </div>
 </template>
@@ -50,7 +51,7 @@ export default {
       isShowNickname: false,
       newNickName: "",
       isShowGender: false,
-      actions: [{ name: "猛男" }, { name: "仙女" }],
+      genderList: [{ name: "仙女" }, { name: "猛男" }],
     };
   },
   created() {
@@ -85,20 +86,18 @@ export default {
       });
     },
     // 修改性别
-    // setGender(index) {
-    //   this.$axios({
-    //     method: "post",
-    //     url: "/user_update/" + localStorage.getItem("userId"),
-    //     headers: { Authorization: localStorage.getItem("token") },
-    //     data: {
-    //       gender: this.actions[index].name,
-    //     },
-    //   }).then((res) => {
-    //     console.log(res);
-
-    //     // this.loadPage();
-    //   });
-    // },
+    setGender(action, index) {
+      this.$axios({
+        method: "post",
+        url: "/user_update/" + localStorage.getItem("userId"),
+        headers: { Authorization: localStorage.getItem("token") },
+        data: {
+          gender: index,
+        },
+      }).then((res) => {
+        this.loadPage();
+      });
+    },
   },
 };
 </script>
