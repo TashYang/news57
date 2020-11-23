@@ -53,7 +53,6 @@ export default {
   created() {
     this.$axios({
       url: "/user/" + localStorage.getItem("userId"),
-      headers: { Authorization: localStorage.getItem("token") },
     }).then((res) => {
       const { message, data } = res.data;
       if (message === "获取成功") {

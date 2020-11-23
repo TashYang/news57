@@ -102,9 +102,6 @@ export default {
         url: "/user_update/" + localStorage.getItem("userId"),
         method: "post",
         data: newData,
-        headers: {
-          Authorization: localStorage.getItem("token"),
-        },
       }).then((res) => {
         // console.log(res);
         // 修改完毕, 刷新数据
@@ -137,10 +134,8 @@ export default {
       this.$axios({
         url: "/upload",
         method: "post",
-        headers: { Authorization: localStorage.getItem("token") },
         data: formdata,
       }).then((res) => {
-        console.log(res);
         const { message, data } = res.data;
         if (message === "文件上传成功") {
           // console.log(data.url);

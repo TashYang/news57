@@ -14,6 +14,16 @@ Vue.prototype.$axios = axios
 // 设置基准路径
 axios.defaults.baseURL = "http://157.122.54.189:9083"
 
+
+// 设置请求拦截器
+axios.interceptors.request.use(config => {
+  if (!config.headers.Authorization && localStorage.getItem('token')) {
+    config.headers.Authorization = localStorage.getItem('token')
+  };
+  return config;
+
+});
+
 // 设置拦截器同意拦截
 axios.interceptors.response.use(res => {
   const errCodePattern = /^4\d{2}$/
