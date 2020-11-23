@@ -73,8 +73,8 @@ export default {
       isShowPwd: false,
       isShowGender: false,
       genderList: [
-        { name: "女", gender: 0 },
         { name: "男", gender: 1 },
+        { name: "女", gender: 0 },
       ],
       isShowImg: false,
       newPassword: "",
