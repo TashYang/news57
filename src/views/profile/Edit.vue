@@ -2,12 +2,14 @@
   <div class="container">
     <TopNav title="编辑资料" />
     <div class="imgWrapper">
-      <img
-        v-if="userInfo.head_img"
-        :src="$axios.defaults.baseURL + userInfo.head_img"
-        class="userImg"
-      />
-      <img v-else src="@/assets/1.png" alt="" class="userImg" />
+      <van-uploader :after-read="afterRead">
+        <img
+          v-if="userInfo.head_img"
+          :src="$axios.defaults.baseURL + userInfo.head_img"
+          class="userImg"
+        />
+        <img v-else src="@/assets/1.png" alt="" class="userImg" />
+      </van-uploader>
     </div>
 
     <ProfileBar
@@ -126,6 +128,27 @@ export default {
     setGender(action) {
       const newData = { gender: action.gender };
       this.editProfile(newData);
+    },
+    // 修改头像
+    afterRead(fileObj) {
+      console.log(fileObj);
+      const formdata = new FormData();
+      formdata.append("file", fileObj.file);
+      this.$axios({
+        url: "/upload",
+        method: "post",
+        headers: { Authorization: localStorage.getItem("token") },
+        data: formdata,
+      }).then((res) => {
+        console.log(res);
+        const { message, data } = res.data;
+        if (message === "文件上传成功") {
+          // console.log(data.url);
+          // 如果文件上传成功，将url的地址传入到head_img的属性
+          const newData = { head_img: data.url };
+          this.editProfile(newData);
+        }
+      });
     },
   },
 };
