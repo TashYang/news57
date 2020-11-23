@@ -2,7 +2,12 @@
   <div class="container">
     <TopNav title="编辑资料" />
     <div class="imgWrapper">
-      <img src="@/assets/1.png" alt="" class="userImg" />
+      <img
+        v-if="userInfo.head_img"
+        :src="$axios.defaults.baseURL + userInfo.head_img"
+        class="userImg"
+      />
+      <img v-else src="@/assets/1.png" alt="" class="userImg" />
     </div>
 
     <ProfileBar
@@ -52,6 +57,7 @@ export default {
       newNickName: "",
       isShowGender: false,
       genderList: [{ name: "仙女" }, { name: "猛男" }],
+      isShowImg: false,
     };
   },
   created() {
@@ -70,20 +76,27 @@ export default {
         }
       });
     },
-    // 修改昵称
-    setNickname() {
+    // 封装修改请求
+    editProfile(newData) {
       this.$axios({
-        method: "post",
         url: "/user_update/" + localStorage.getItem("userId"),
-        headers: { Authorization: localStorage.getItem("token") },
-        data: {
-          nickname: this.newNickName,
+        method: "post",
+        data: newData,
+        headers: {
+          Authorization: localStorage.getItem("token"),
         },
       }).then((res) => {
+        console.log(res);
+        // 修改完毕, 刷新数据
         this.loadPage();
-        // 确认后清空掉输入框的数据
-        this.newNickName = "";
       });
+    },
+    // 修改昵称
+    setNickname() {
+      const newData = { nickname: this.newNickName };
+      this.editProfile(newData);
+      // 确认后清空掉输入框的数据
+      this.newNickName = "";
     },
     // 修改性别
     setGender(action, index) {

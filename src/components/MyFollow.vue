@@ -49,6 +49,7 @@ export default {};
     background-color: rgba(153, 153, 153, 0.2);
     text-align: center;
     font-size: 12/360 * 100vw;
+    border: 0;
   }
 }
 </style>
