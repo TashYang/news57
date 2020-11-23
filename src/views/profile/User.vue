@@ -85,6 +85,7 @@ export default {
     width: 70/360 * 100vw;
     height: 70/360 * 100vw;
     border-radius: 50%;
+    object-fit: cover;
   }
   .info {
     flex-grow: 1;
