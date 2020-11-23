@@ -12,7 +12,7 @@
         <div class="name">{{ item.name }}</div>
         <div class="date">2020-11-20</div>
       </div>
-      <button class="unfollow">取消关注</button>
+      <button class="unfollow" @click="unfollow(item.id)">取消关注</button>
     </div>
   </div>
 </template>
@@ -30,14 +30,24 @@ export default {
   },
   created() {
     // 获取关注数据
-    this.$axios({
-      url: "user_follows",
-    }).then((res) => {
-      console.log(res);
-      this.followList = res.data.data;
-    });
+    this.loadPage();
   },
-  methods: {},
+  methods: {
+    loadPage() {
+      this.$axios({
+        url: "user_follows",
+      }).then((res) => {
+        this.followList = res.data.data;
+      });
+    },
+    unfollow(userId) {
+      this.$axios({
+        url: "/user_unfollow/" + userId,
+      }).then((res) => {
+        this.loadPage();
+      });
+    },
+  },
 };
 </script>
 
