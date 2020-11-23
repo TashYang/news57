@@ -1,15 +1,16 @@
 <template>
   <div class="container">
-    <TopNav title="我的关注" @click.native="$router.back(-1)" />
+    <TopNav title="我的关注" @click.native="$router.push('/user')" />
     <div class="fence" v-for="item in followList" :key="item.id">
       <img
         v-if="item.head_img"
         :src="$axios.defaults.baseURL + item.head_img"
         alt=""
+        class="avatar"
       />
-      <img v-else src="@/assets/1.png" alt="" class="newsImg" />
+      <img v-else src="@/assets/1.png" alt="" class="avatar" />
       <div class="info">
-        <div class="name">{{ item.name }}</div>
+        <div class="name">{{ item.nickname }}</div>
         <div class="date">2020-11-20</div>
       </div>
       <button class="unfollow" @click="unfollow(item.id)">取消关注</button>
@@ -37,6 +38,7 @@ export default {
       this.$axios({
         url: "user_follows",
       }).then((res) => {
+        console.log(res);
         this.followList = res.data.data;
       });
     },
@@ -53,24 +55,21 @@ export default {
 
 <style lang="less" scoped>
 .container {
-  display: flex;
-  flex-direction: column;
   .fence {
     display: flex;
     align-items: center;
     border-bottom: 2px solid#d7d7d7;
-    padding: 15/360 * 100vw;
-    padding-left: 0;
+    padding: 20/360 * 100vw;
 
-    .newsImg {
+    .avatar {
       width: 40/360 * 100vw;
       height: 40/360 * 100vw;
+      object-fit: cover;
       border-radius: 50%;
-      margin-left: 20/360 * 100vw;
     }
     .info {
       flex: 1;
-      margin-left: 10/360 * 100vw;
+      padding-left: 10/360 * 100vw;
 
       .name {
         font-size: 16 /360 * 100vw;
@@ -79,6 +78,7 @@ export default {
       .date {
         color: #888;
         font-size: 14/360 * 100vw;
+        padding-top: 4 /360 * 100vw;
       }
     }
 
@@ -86,7 +86,7 @@ export default {
       width: 73/360 * 100vw;
       height: 30/360 * 100vw;
       line-height: 30/360 * 100vw;
-      border-radius: 50/360 * 100vw;
+      border-radius: 15/360 * 100vw;
       background-color: rgba(153, 153, 153, 0.2);
       text-align: center;
       font-size: 12/360 * 100vw;
