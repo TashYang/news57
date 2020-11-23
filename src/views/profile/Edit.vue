@@ -15,7 +15,7 @@
       :message="userInfo.nickname"
       @click.native="isShowNickname = true"
     />
-    <ProfileBar text="密码" message="******" />
+    <ProfileBar text="密码" message="******" @click.native="isShowPwd = true" />
     <ProfileBar
       text="性别"
       :message="userInfo.gender === 1 ? '猛男' : '仙女'"
@@ -30,6 +30,19 @@
       @confirm="setNickname"
     >
       <van-field v-model="newNickName" placeholder="请输入昵称" />
+    </van-dialog>
+
+    <van-dialog
+      v-model="isShowPwd"
+      title="修改密码"
+      show-cancel-button
+      @confirm="setPassword"
+    >
+      <van-field
+        v-model="newPassword"
+        type="password"
+        placeholder="请输入密码"
+      />
     </van-dialog>
 
     <van-action-sheet
@@ -55,9 +68,11 @@ export default {
       userInfo: {},
       isShowNickname: false,
       newNickName: "",
+      isShowPwd: false,
       isShowGender: false,
       genderList: [{ name: "仙女" }, { name: "猛男" }],
       isShowImg: false,
+      newPassword: "",
     };
   },
   created() {
@@ -97,6 +112,12 @@ export default {
       this.editProfile(newData);
       // 确认后清空掉输入框的数据
       this.newNickName = "";
+    },
+    // 修改密码
+    setPassword() {
+      const newData = { password: this.newPassword };
+      this.editProfile(newData);
+      this.newPassword = "";
     },
     // 修改性别
     setGender(action, index) {
