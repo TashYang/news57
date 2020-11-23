@@ -70,7 +70,10 @@ export default {
       newNickName: "",
       isShowPwd: false,
       isShowGender: false,
-      genderList: [{ name: "仙女" }, { name: "猛男" }],
+      genderList: [
+        { name: "女", gender: 0 },
+        { name: "男", gender: 1 },
+      ],
       isShowImg: false,
       newPassword: "",
     };
@@ -101,7 +104,7 @@ export default {
           Authorization: localStorage.getItem("token"),
         },
       }).then((res) => {
-        console.log(res);
+        // console.log(res);
         // 修改完毕, 刷新数据
         this.loadPage();
       });
@@ -120,17 +123,9 @@ export default {
       this.newPassword = "";
     },
     // 修改性别
-    setGender(action, index) {
-      this.$axios({
-        method: "post",
-        url: "/user_update/" + localStorage.getItem("userId"),
-        headers: { Authorization: localStorage.getItem("token") },
-        data: {
-          gender: index,
-        },
-      }).then((res) => {
-        this.loadPage();
-      });
+    setGender(action) {
+      const newData = { gender: action.gender };
+      this.editProfile(newData);
     },
   },
 };
