@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <TopNav title="我的关注" @click.native="$router.push('/user')" />
+    <TopNav title="我的关注" />
     <div class="fence" v-for="item in followList" :key="item.id">
       <img
         v-if="item.head_img"

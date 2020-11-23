@@ -6,6 +6,7 @@ import Register from '../views/Register'
 import User from '../views/profile/User.vue'
 import Edit from '../views/profile/Edit.vue'
 import Follow from '@/views//profile/Follow'
+import Category from '../views/Category'
 
 Vue.use(VueRouter)
 
@@ -42,6 +43,10 @@ const routes = [
     meta: {
       needAuth: true
     }
+  },
+  {
+    path: "/category",
+    component: Category
   }
 ]
 
