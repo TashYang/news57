@@ -1,28 +1,28 @@
 <template>
   <div>
-    <router-link to="/login">登录</router-link> |
-    <router-link to="/register">注册</router-link> |
-    <router-link to="/user">个人中心</router-link> |
-    <router-link to="/edit">编辑资料</router-link>|
-    <router-link to="/follow">我的关注</router-link>|
-    <button @click="follow(11)">获取用户</button>
-    <router-view></router-view>
+    <HomeHeader />
+    <van-tabs v-model="active">
+      <van-tab title="标签 1">内容 1</van-tab>
+      <van-tab title="标签 2">内容 2</van-tab>
+      <van-tab title="标签 3">内容 3</van-tab>
+      <van-tab title="标签 4">内容 4</van-tab>
+    </van-tabs>
   </div>
 </template>
 
 <script>
+import HomeHeader from "../components/HomeHeader";
 export default {
-  methods: {
-    follow(id) {
-      this.$axios({
-        url: "/user_follows/" + id,
-      }).then((res) => {
-        console.log(res);
-      });
-    },
+  components: {
+    HomeHeader,
+  },
+  data() {
+    return {
+      active: 0,
+    };
   },
 };
 </script>
 
-<style>
+<style lang="less" scoped>
 </style>
