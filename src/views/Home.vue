@@ -1,11 +1,13 @@
 <template>
   <div>
     <HomeHeader />
-    <van-tabs v-model="active">
-      <van-tab title="标签 1">内容 1</van-tab>
-      <van-tab title="标签 2">内容 2</van-tab>
-      <van-tab title="标签 3">内容 3</van-tab>
-      <van-tab title="标签 4">内容 4</van-tab>
+    <van-tabs v-model="active" background="#e4e4e4">
+      <van-tab
+        :title="category.name"
+        v-for="category in categoryList"
+        :key="category.id"
+        >{{ category.name }}的内容
+      </van-tab>
     </van-tabs>
   </div>
 </template>
@@ -19,7 +21,16 @@ export default {
   data() {
     return {
       active: 0,
+      categoryList: [],
     };
+  },
+  created() {
+    this.$axios({
+      url: "/category",
+    }).then((res) => {
+      console.log(res);
+      this.categoryList = res.data.data;
+    });
   },
 };
 </script>
