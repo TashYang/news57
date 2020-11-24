@@ -35,7 +35,22 @@
         {{ postData.comment_length }} 跟帖
       </div>
     </div>
-    <div v-if="postData.type == 2 && postData.cover.length >= 1">视频</div>
+
+    <!-- 获取视频 -->
+    <div
+      v-if="postData.type == 2 && postData.cover.length >= 1"
+      class="videoPost"
+    >
+      <div class="title">{{ postData.title }}</div>
+      <div class="coverWrapper">
+        <img :src="postData.cover[0].url" alt="" class="cover" />
+        <span class="iconfont iconshipin"></span>
+      </div>
+      <div class="info">
+        <span>{{ postData.user.nickname }}</span>
+        {{ postData.comment_length }} 跟帖
+      </div>
+    </div>
   </div>
 </template>
 
@@ -82,6 +97,29 @@ export default {
     margin: 5/360 * 100vw 0;
     .cover {
       width: 33%;
+    }
+  }
+}
+.videoPost {
+  padding: 10/360 * 100vw;
+  border-bottom: 1px solid #ccc;
+  .coverWrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10 /360 * 100vw 0;
+    .cover {
+      width: 100%;
+      height: 170 /360 * 100vw;
+      object-fit: cover;
+    }
+    .iconshipin {
+      position: absolute;
+      color: #fff;
+      background-color: rgba(0, 0, 0, 0.3);
+      font-size: 46 /360 * 100vw;
+      border-radius: 50%;
     }
   }
 }
