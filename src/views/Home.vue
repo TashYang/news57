@@ -6,7 +6,8 @@
         :title="category.name"
         v-for="category in categoryList"
         :key="category.id"
-        >{{ category.name }}的内容
+      >
+        <PostItem v-for="post in postList" :key="post.id" :postData="post" />
       </van-tab>
     </van-tabs>
   </div>
@@ -14,14 +15,17 @@
 
 <script>
 import HomeHeader from "../components/HomeHeader";
+import PostItem from "../components/PostItem";
 export default {
   components: {
     HomeHeader,
+    PostItem,
   },
   data() {
     return {
       active: 0,
       categoryList: [],
+      postList: [],
     };
   },
   created() {
@@ -30,6 +34,12 @@ export default {
     }).then((res) => {
       console.log(res);
       this.categoryList = res.data.data;
+    });
+    this.$axios({
+      url: "/post",
+    }).then((res) => {
+      console.log(res);
+      this.postList = res.data.data;
     });
   },
 };
