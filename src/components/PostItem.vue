@@ -17,7 +17,7 @@
         </div>
       </div>
 
-      <img :src="postData.cover[0].url" alt="" class="right" />
+      <img :src="postData.cover[0].url | fixImgUrl" alt="" class="right" />
     </div>
     <!-- 多张图片 -->
     <div
@@ -26,9 +26,9 @@
     >
       <div class="title">{{ postData.title }}</div>
       <div class="coverWrapper">
-        <img :src="postData.cover[0].url" alt="" class="cover" />
-        <img :src="postData.cover[1].url" alt="" class="cover" />
-        <img :src="postData.cover[2].url" alt="" class="cover" />
+        <img :src="postData.cover[0].url | fixImgUrl" alt="" class="cover" />
+        <img :src="postData.cover[1].url | fixImgUrl" alt="" class="cover" />
+        <img :src="postData.cover[2].url | fixImgUrl" alt="" class="cover" />
       </div>
       <div class="info">
         <span>{{ postData.user.nickname }}</span>
@@ -43,7 +43,7 @@
     >
       <div class="title">{{ postData.title }}</div>
       <div class="coverWrapper">
-        <img :src="postData.cover[0].url" alt="" class="cover" />
+        <img :src="postData.cover[0].url | fixImgUrl" alt="" class="cover" />
         <span class="iconfont iconshipin"></span>
       </div>
       <div class="info">

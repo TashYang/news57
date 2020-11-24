@@ -14,6 +14,14 @@ Vue.prototype.$axios = axios
 // 设置基准路径
 axios.defaults.baseURL = "http://157.122.54.189:9083"
 
+// 设置全局过滤器
+Vue.filter('fixImgUrl', (oldUrl) => {
+  if (oldUrl.indexOf("http") > -1) {
+    return oldUrl
+  } else {
+    return axios.defaults.baseURL + oldUrl
+  }
+})
 
 // 设置请求拦截器
 axios.interceptors.request.use(config => {
