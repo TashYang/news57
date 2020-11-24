@@ -32,8 +32,13 @@ export default {
     this.$axios({
       url: "/category",
     }).then((res) => {
-      console.log(res);
       this.categoryList = res.data.data;
+      // this.categoryList = res.data.data.map((category) => {
+      //   return {
+      //     ...category,
+      //     postList: [],
+      //   };
+      // });
     });
     this.$axios({
       url: "/post",

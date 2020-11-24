@@ -14,7 +14,7 @@ Vue.prototype.$axios = axios
 // 设置基准路径
 axios.defaults.baseURL = "http://157.122.54.189:9083"
 
-// 设置全局过滤器
+// 设置全局过滤器,如果获取到的数据图片路径不完整则补全
 Vue.filter('fixImgUrl', (oldUrl) => {
   if (oldUrl.indexOf("http") > -1) {
     return oldUrl
