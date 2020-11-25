@@ -7,6 +7,10 @@ import User from '../views/profile/User.vue'
 import Edit from '../views/profile/Edit.vue'
 import Follow from '@/views//profile/Follow'
 import Category from '../views/Category'
+import Collect from '@/views//profile/Collect'
+
+
+
 
 Vue.use(VueRouter)
 
@@ -47,6 +51,9 @@ const routes = [
   {
     path: '/category',
     component: Category
+  }, {
+    path: '/collect',
+    component: Collect
   }
 
 ]
