@@ -7,7 +7,11 @@
         v-for="category in categoryList"
         :key="category.id"
       >
-        <PostItem v-for="post in postList" :key="post.id" :postData="post" />
+        <PostItem
+          v-for="post in category.postList"
+          :key="post.id"
+          :postData="post"
+        />
       </van-tab>
     </van-tabs>
   </div>
@@ -25,7 +29,7 @@ export default {
     return {
       activeIndex: 0, // 激活状态
       categoryList: [],
-      postList: [],
+      // postList:[]
     };
   },
   // 监控激活状态
@@ -38,8 +42,13 @@ export default {
     this.$axios({
       url: "/category",
     }).then((res) => {
-      this.categoryList = res.data.data;
-      console.log(this.categoryList);
+      this.categoryList = res.data.data.map((item) => {
+        // .map 映射一个新的数组
+        return {
+          ...item, //  相当于复制了一样的数组
+          postList: [], //   给新数组添加了 postList的属性，会是每一个item都有自己的postList，而不是共用一个postList
+        };
+      });
       this.loadPost();
     });
   },
@@ -52,8 +61,8 @@ export default {
         url: "/post",
         params: { category: currentCategory.id }, // 参数category是栏目的id
       }).then((res) => {
-        console.log(res);
-        this.postList = res.data.data;
+        currentCategory.postList = res.data.data;
+        console.log(this.categoryList);
       });
     },
   },
