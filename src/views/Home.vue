@@ -23,7 +23,7 @@ export default {
   },
   data() {
     return {
-      active: 0,
+      active: 0, // 激活状态
       categoryList: [],
       postList: [],
     };
@@ -32,6 +32,7 @@ export default {
     this.$axios({
       url: "/category",
     }).then((res) => {
+      console.log(res);
       this.categoryList = res.data.data;
       // this.categoryList = res.data.data.map((category) => {
       //   return {

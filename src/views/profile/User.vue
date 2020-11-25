@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <TopNav title="个人中心" />
     <!-- 上半部 -->
     <div class="user" @click="$router.push('/edit')">
       <img
@@ -39,10 +40,12 @@
 <script>
 import ProfileBar from "@/components/ProfileBar";
 import AuthBtn from "@/components/AuthBtn";
+import TopNav from "@/components/TopNav";
 export default {
   components: {
     ProfileBar,
     AuthBtn,
+    TopNav,
   },
   data() {
     return {
