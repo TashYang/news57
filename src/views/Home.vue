@@ -35,20 +35,25 @@ export default {
   // 监控激活状态
   watch: {
     activeIndex() {
-      this.loadPost();
+      const currentCategory = this.categoryList[this.activeIndex];
+      if (currentCategory.postList.length == 0) {
+        this.loadPost();
+      }
     },
   },
   created() {
     this.$axios({
       url: "/category",
     }).then((res) => {
+      // this.categoryList = res.data.data
       this.categoryList = res.data.data.map((item) => {
         // .map 映射一个新的数组
         return {
           ...item, //  相当于复制了一样的数组
-          postList: [], //   给新数组添加了 postList的属性，会是每一个item都有自己的postList，而不是共用一个postList
+          postList: [], //   给每个分类添加了 postList的属性，会是每一个item都有自己的postList，而不是共用一个postList
         };
       });
+
       this.loadPost();
     });
   },
@@ -59,8 +64,9 @@ export default {
       const currentCategory = this.categoryList[this.activeIndex];
       this.$axios({
         url: "/post",
-        params: { category: currentCategory.id }, // 参数category是栏目的id
+        params: { category: currentCategory.id }, // 根据当前激活分类的id获取该分类的文章列表
       }).then((res) => {
+        //将文章数组放入当前激活分类
         currentCategory.postList = res.data.data;
         console.log(this.categoryList);
       });
