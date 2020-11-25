@@ -31,7 +31,11 @@
       @click.native="$router.push('/follow')"
     />
     <ProfileBar text="我的跟帖" message="跟帖/回复" />
-    <ProfileBar text="我的收藏" message="文章/视频" />
+    <ProfileBar
+      text="我的收藏"
+      message="文章/视频"
+      @click.native="$router.push('/collect')"
+    />
     <ProfileBar text="设置" @click.native="$router.push('/edit')" />
     <AuthBtn btnText="退出" @click.native="logout" :class="myClass" />
   </div>

@@ -8,7 +8,7 @@ import Edit from '../views/profile/Edit.vue'
 import Follow from '@/views//profile/Follow'
 import Category from '../views/Category'
 import Collect from '@/views//profile/Collect'
-
+import test from '@/views/test'
 
 
 
@@ -54,6 +54,9 @@ const routes = [
   }, {
     path: '/collect',
     component: Collect
+  }, {
+    path: '/test',
+    component: test
   }
 
 ]
