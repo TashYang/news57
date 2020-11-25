@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button @click="addCollect(68)">添加收藏</button>
+    <button @click="addCollect(93)">添加收藏</button>
   </div>
 </template>
 

@@ -11,7 +11,6 @@
         <img v-else src="@/assets/1.png" alt="" class="userImg" />
       </van-uploader>
     </div>
-
     <ProfileBar
       text="昵称"
       :message="userInfo.nickname"
