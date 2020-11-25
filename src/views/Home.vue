@@ -1,7 +1,7 @@
 <template>
   <div>
     <HomeHeader />
-    <van-tabs v-model="active" background="#e4e4e4">
+    <van-tabs v-model="activeIndex" background="#e4e4e4">
       <van-tab
         :title="category.name"
         v-for="category in categoryList"
@@ -23,30 +23,39 @@ export default {
   },
   data() {
     return {
-      active: 0, // 激活状态
+      activeIndex: 0, // 激活状态
       categoryList: [],
       postList: [],
     };
+  },
+  // 监控激活状态
+  watch: {
+    activeIndex() {
+      this.loadPost();
+    },
   },
   created() {
     this.$axios({
       url: "/category",
     }).then((res) => {
-      console.log(res);
       this.categoryList = res.data.data;
-      // this.categoryList = res.data.data.map((category) => {
-      //   return {
-      //     ...category,
-      //     postList: [],
-      //   };
-      // });
+      console.log(this.categoryList);
+      this.loadPost();
     });
-    this.$axios({
-      url: "/post",
-    }).then((res) => {
-      console.log(res);
-      this.postList = res.data.data;
-    });
+  },
+  methods: {
+    loadPost() {
+      // 当前激活分类的索引是 this.activeIndex
+      // 当前激活的分类 this.categoryList[this.activeIndex]
+      const currentCategory = this.categoryList[this.activeIndex];
+      this.$axios({
+        url: "/post",
+        params: { category: currentCategory.id }, // 参数category是栏目的id
+      }).then((res) => {
+        console.log(res);
+        this.postList = res.data.data;
+      });
+    },
   },
 };
 </script>
