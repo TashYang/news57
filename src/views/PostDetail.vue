@@ -2,24 +2,40 @@
   <div class="postdetail">
     <!-- 文章 -->
     <div v-if="postData.type == 1" class="normalPost">
-      <div class="top">
-        <div class="header">
-          <span class="iconfont iconjiantou2"></span>
-          <span class="iconfont iconnew"></span>
-          <div class="isFollow">已关注</div>
+      <div class="header">
+        <span class="iconfont iconjiantou2" @click="$router.back()"></span>
+        <span class="iconfont iconnew"></span>
+        <div class="btnFollow">已关注</div>
+      </div>
+      <div class="mainContent">
+        <h3 class="title">{{ postData.title }}</h3>
+        <div class="info">
+          <div class="name">{{ postData.user.nickname }}</div>
+          2019-10-10
         </div>
-        <div class="headline">
-          <h3 class="title">{{ postData.title }}</h3>
-          <div class="info">
-            <div class="name">{{ postData.user.nickname }}</div>
-            <div class="date">2019-10-10</div>
-          </div>
-          <p class="content" v-html="postData.content"></p>
-        </div>
+        <p class="content" v-html="postData.content"></p>
       </div>
     </div>
     <!-- 视频 -->
-    <div v-if="postData.type == 2" class="videoPost">视频</div>
+    <div v-if="postData.type == 2" class="videoPost">
+      <video
+        controls
+        poster="https://timgmb04.bdimg.com/timg?searchbox_feed&quality=100&wh_rate=0&size=b576_324&ref=http%3A%2F%2Fwww.baidu.com&sec=1568739067&di=612dd27cae470b93b01a4b32ef72fbac&src=http%3A%2F%2Fpic.rmb.bdstatic.com%2Fe18c6ffa079441431f8988ca4c3ac106.jpeg"
+        src=" https://video.pearvideo.com/mp4/adshort/20200421/cont-1670293-15098199_adpkg-ad_hd.mp4"
+      ></video>
+      <div class="info">
+        <img
+          v-if="postData.user.head_img"
+          :src="$axios.defaults.baseURL + postData.user.head_img"
+          alt=""
+          class="avatar"
+        />
+        <img v-else src="@/assets/1.png" alt="" class="avatar" />
+        <div class="name">{{ postData.user.nickname }}</div>
+        <div class="btnFollow">已关注</div>
+      </div>
+      <div class="title">{{ postData.title }}</div>
+    </div>
 
     <div class="share">
       <div class="agree"><span class="iconfont icondianzan"></span> 112</div>
@@ -48,9 +64,12 @@ export default {
 
 <style lang="less" scoped>
 .postdetail {
-  padding: 0 15/360 * 100vw;
+  padding: 0 20/360 * 100vw;
   border-bottom: 5px solid #ccc;
 
+  /deep/ img {
+    max-width: 100%;
+  }
   .normalPost {
     .header {
       display: flex;
@@ -64,18 +83,16 @@ export default {
         flex: 1;
         font-size: 54/360 * 100vw;
       }
-      .isFollow {
-        width: 62/360 * 100vw;
-        height: 26/360 * 100vw;
-        line-height: 26/360 * 100vw;
-        border-radius: 13/360 * 100vw;
-        border-color: rgb(215, 215, 215);
-        border: 1px solid #ccc;
-        text-align: center;
-        font-size: 12/360 * 100vw;
+      .btnFollow {
+        padding: 0 16 /360 * 100vw;
+        height: 30/360 * 100vw;
+        line-height: 30/360 * 100vw;
+        border-radius: 15/360 * 100vw;
+        border: 1px solid #888;
+        font-size: 16/360 * 100vw;
       }
     }
-    .headline {
+    .mainContent {
       .title {
         font-size: 18/360 * 100vw;
         color: #333;
@@ -97,6 +114,40 @@ export default {
     }
   }
 
+  .videoPost {
+    video {
+      width: 100%;
+    }
+    .info {
+      padding: 10 /360 * 100vw;
+      display: flex;
+      align-items: center;
+      .avatar {
+        width: 40/360 * 100vw;
+        height: 40 /360 * 100vw;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-right: 5/360 * 100vw;
+      }
+      .name {
+        flex-grow: 1;
+        color: #888;
+      }
+      .btnFollow {
+        padding: 0 16 /360 * 100vw;
+        height: 30/360 * 100vw;
+        line-height: 30/360 * 100vw;
+        border-radius: 15/360 * 100vw;
+        border: 1px solid #888;
+        font-size: 16/360 * 100vw;
+      }
+    }
+    .title {
+      padding: 10 /360 * 100vw;
+      font-size: 16 /360 * 100vw;
+      color: #333;
+    }
+  }
   .share {
     display: flex;
     justify-content: space-evenly;
@@ -123,9 +174,6 @@ export default {
         font-size: 17/360 * 100vw;
       }
     }
-  }
-  /deep/ img {
-    max-width: 100%;
   }
 }
 </style>
