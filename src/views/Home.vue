@@ -45,6 +45,7 @@ export default {
     // 切换分类会触发这个监听器
     activeIndex() {
       const currentCategory = this.categoryList[this.activeIndex];
+      // console.log(currentCategory.postList.length);
       // 当前栏目如果已经有文章就不需要再获取
       if (currentCategory.postList.length == 0) {
         this.loadPost();
@@ -90,7 +91,7 @@ export default {
           ...currentCategory.postList,
           ...res.data.data,
         ];
-        console.log(this.categoryList);
+        // console.log(this.categoryList);
 
         // 2. 加载完数据应该通知组件, 加载状态变为 false 可以继续后面的翻页了
         currentCategory.loading = false;

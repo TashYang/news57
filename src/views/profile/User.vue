@@ -34,7 +34,7 @@
     <ProfileBar
       text="我的收藏"
       message="文章/视频"
-      @click.native="$router.push('/collect')"
+      @click.native="$router.push('/star')"
     />
     <ProfileBar text="设置" @click.native="$router.push('/edit')" />
     <AuthBtn btnText="退出" @click.native="logout" :class="myClass" />
