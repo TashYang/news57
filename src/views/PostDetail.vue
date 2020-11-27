@@ -5,7 +5,15 @@
       <div class="header">
         <span class="iconfont iconjiantou2" @click="$router.back()"></span>
         <span class="iconfont iconnew"></span>
-        <div class="btnFollow">已关注</div>
+        <div
+          class="btnFollow"
+          @click="handleFollow"
+          :class="{
+            unfollow: !postData.has_follow,
+          }"
+        >
+          {{ postData.has_follow ? "已关注" : "关注" }}
+        </div>
       </div>
       <div class="mainContent">
         <h3 class="title">{{ postData.title }}</h3>
@@ -32,14 +40,30 @@
         />
         <img v-else src="@/assets/1.png" alt="" class="avatar" />
         <div class="name">{{ postData.user.nickname }}</div>
-        <div class="btnFollow">已关注</div>
+        <div
+          class="btnFollow"
+          @click="handleFollow"
+          :class="{
+            unfollow: !postData.has_follow,
+          }"
+        >
+          {{ postData.has_follow ? "已关注" : "关注" }}
+        </div>
       </div>
       <div class="title">{{ postData.title }}</div>
     </div>
 
-    <div class="share">
-      <div class="agree"><span class="iconfont icondianzan"></span> 112</div>
-      <div class="agree"><span class="iconfont iconweixin"></span> 微信</div>
+    <div class="btns">
+      <div
+        class="btn"
+        :class="{
+          haslike: postData.has_like,
+        }"
+      >
+        <span class="iconfont icondianzan" @click="handleDianzan"></span>
+        {{ postData.like_length }}
+      </div>
+      <div class="btn"><span class="iconfont iconweixin"></span> 微信</div>
     </div>
   </div>
 </template>
@@ -58,6 +82,40 @@ export default {
       this.postData = res.data.data;
       console.log(this.postData);
     });
+  },
+  methods: {
+    // 关注按钮的切换
+    handleFollow() {
+      if (this.postData.has_follow) {
+        this.$axios({
+          url: "/user_unfollow/" + this.postData.user.id,
+        }).then((res) => {
+          // console.log(res);
+          this.postData.has_follow = false;
+        });
+      } else {
+        this.$axios({
+          url: "/user_follows/" + this.postData.user.id,
+        }).then((res) => {
+          this.postData.has_follow = true;
+        });
+      }
+    },
+    // 点赞按钮的切换
+    handleDianzan() {
+      this.$axios({
+        url: "/post_like/" + this.postData.id,
+      }).then((res) => {
+        console.log(res);
+        if (res.data.message == "点赞成功") {
+          this.postData.has_like = true;
+          this.$toast.success(res.data.message);
+        } else if (res.data.message == "取消成功") {
+          this.postData.has_like = false;
+          this.$toast(res.data.message);
+        }
+      });
+    },
   },
 };
 </script>
@@ -82,14 +140,6 @@ export default {
       .iconnew {
         flex: 1;
         font-size: 54/360 * 100vw;
-      }
-      .btnFollow {
-        padding: 0 16 /360 * 100vw;
-        height: 30/360 * 100vw;
-        line-height: 30/360 * 100vw;
-        border-radius: 15/360 * 100vw;
-        border: 1px solid #888;
-        font-size: 16/360 * 100vw;
       }
     }
     .mainContent {
@@ -133,14 +183,6 @@ export default {
         flex-grow: 1;
         color: #888;
       }
-      .btnFollow {
-        padding: 0 16 /360 * 100vw;
-        height: 30/360 * 100vw;
-        line-height: 30/360 * 100vw;
-        border-radius: 15/360 * 100vw;
-        border: 1px solid #888;
-        font-size: 16/360 * 100vw;
-      }
     }
     .title {
       padding: 10 /360 * 100vw;
@@ -148,12 +190,27 @@ export default {
       color: #333;
     }
   }
-  .share {
+  .btnFollow {
+    padding: 0 16 /360 * 100vw;
+    height: 30/360 * 100vw;
+    line-height: 30/360 * 100vw;
+    border-radius: 15/360 * 100vw;
+    border: 1px solid #888;
+    font-size: 16/360 * 100vw;
+
+    &.unfollow {
+      background-color: red;
+      border-color: red;
+      color: #fff;
+    }
+  }
+
+  .btns {
     display: flex;
     justify-content: space-evenly;
     padding: 30/360 * 100vw 0;
 
-    .agree {
+    .btn {
       width: 79/360 * 100vw;
       height: 29/360 * 100vw;
       line-height: 29/360 * 100vw;
@@ -166,12 +223,15 @@ export default {
       display: flex;
       justify-content: space-evenly;
       align-items: center;
-      .icondianzan {
+      .iconfont {
         font-size: 17/360 * 100vw;
       }
+
       .iconweixin {
         color: #00c800;
-        font-size: 17/360 * 100vw;
+      }
+      &.haslike {
+        color: red;
       }
     }
   }
