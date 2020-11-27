@@ -26,11 +26,16 @@
     </div>
     <!-- 视频 -->
     <div v-if="postData.type == 2" class="videoPost">
-      <video
-        controls
-        poster="https://timgmb04.bdimg.com/timg?searchbox_feed&quality=100&wh_rate=0&size=b576_324&ref=http%3A%2F%2Fwww.baidu.com&sec=1568739067&di=612dd27cae470b93b01a4b32ef72fbac&src=http%3A%2F%2Fpic.rmb.bdstatic.com%2Fe18c6ffa079441431f8988ca4c3ac106.jpeg"
-        src=" https://video.pearvideo.com/mp4/adshort/20200421/cont-1670293-15098199_adpkg-ad_hd.mp4"
-      ></video>
+      <div class="videoWrapper">
+        <video
+          ref="video"
+          controls
+          poster="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1606477226840&di=c2de4a1fa5bdafcd822bf257b067f372&imgtype=0&src=http%3A%2F%2Fn.sinaimg.cn%2Fsinacn16%2F350%2Fw690h460%2F20181121%2F7485-hnyuqhi6466138.jpg"
+          src=" https://video.pearvideo.com/mp4/adshort/20200421/cont-1670293-15098199_adpkg-ad_hd.mp4"
+        ></video>
+        <span class="iconfont iconshipin" @click="playVideo"></span>
+      </div>
+
       <div class="info">
         <img
           v-if="postData.user.head_img"
@@ -116,19 +121,24 @@ export default {
         }
       });
     },
+    // 播放视频
+    playVideo() {
+      // console.log(this.$refs.video);
+      this.$refs.video.play();
+    },
   },
 };
 </script>
 
 <style lang="less" scoped>
 .postdetail {
-  padding: 0 20/360 * 100vw;
   border-bottom: 5px solid #ccc;
 
   /deep/ img {
     max-width: 100%;
   }
   .normalPost {
+    padding: 0 20/360 * 100vw;
     .header {
       display: flex;
       align-items: center;
@@ -165,8 +175,31 @@ export default {
   }
 
   .videoPost {
-    video {
-      width: 100%;
+    position: relative;
+
+    .videoWrapper {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 40/360 * 100vw;
+      video {
+        width: 100%;
+        // position: absolute;
+      }
+      .cover {
+        position: fixed;
+        top: 24/360 * 100vw;
+        width: 100%;
+        object-fit: cover;
+      }
+      .iconshipin {
+        position: absolute;
+        color: #fff;
+        background-color: rgba(0, 0, 0, 0.3);
+        font-size: 46 /360 * 100vw;
+        border-radius: 50%;
+      }
     }
     .info {
       padding: 10 /360 * 100vw;
@@ -191,12 +224,14 @@ export default {
     }
   }
   .btnFollow {
-    padding: 0 16 /360 * 100vw;
+    // padding: 0 16 /360 * 100vw;
+    width: 62/360 * 100vw;
+    text-align: center;
     height: 30/360 * 100vw;
     line-height: 30/360 * 100vw;
     border-radius: 15/360 * 100vw;
     border: 1px solid #888;
-    font-size: 16/360 * 100vw;
+    font-size: 14/360 * 100vw;
 
     &.unfollow {
       background-color: red;
