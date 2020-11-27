@@ -6,7 +6,7 @@ import Register from '../views/Register'
 import User from '../views/profile/User.vue'
 import Edit from '../views/profile/Edit.vue'
 import Follow from '@/views//profile/Follow'
-import Category from '../views/Category'
+import PostDetail from '../views/PostDetail'
 import Star from '@/views//profile/Star'
 import test from '@/views/test'
 
@@ -49,8 +49,8 @@ const routes = [
     }
   },
   {
-    path: '/category',
-    component: Category
+    path: '/postDetail/:id',
+    component: PostDetail
   }, {
     path: '/star',
     component: Star
