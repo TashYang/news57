@@ -29,15 +29,6 @@
       <div class="header">
         <span class="iconfont iconjiantou2" @click="$router.back()"></span>
         <span class="iconfont iconnew"></span>
-        <div
-          class="btnFollow"
-          @click="handleFollow"
-          :class="{
-            unfollow: !postData.has_follow,
-          }"
-        >
-          {{ postData.has_follow ? "已关注" : "关注" }}
-        </div>
       </div>
       <div class="videoWrapper" @click="handlePlay">
         <video
