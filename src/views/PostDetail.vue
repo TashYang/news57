@@ -26,14 +26,28 @@
     </div>
     <!-- 视频 -->
     <div v-if="postData.type == 2" class="videoPost">
-      <div class="videoWrapper">
+      <div class="header">
+        <span class="iconfont iconjiantou2" @click="$router.back()"></span>
+        <span class="iconfont iconnew"></span>
+        <div
+          class="btnFollow"
+          @click="handleFollow"
+          :class="{
+            unfollow: !postData.has_follow,
+          }"
+        >
+          {{ postData.has_follow ? "已关注" : "关注" }}
+        </div>
+      </div>
+      <div class="videoWrapper" @click="handlePlay">
         <video
           ref="video"
           controls
+          @pause="topause"
           poster="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1606477226840&di=c2de4a1fa5bdafcd822bf257b067f372&imgtype=0&src=http%3A%2F%2Fn.sinaimg.cn%2Fsinacn16%2F350%2Fw690h460%2F20181121%2F7485-hnyuqhi6466138.jpg"
           src=" https://video.pearvideo.com/mp4/adshort/20200421/cont-1670293-15098199_adpkg-ad_hd.mp4"
         ></video>
-        <span class="iconfont iconshipin" @click="playVideo"></span>
+        <span class="iconfont iconshipin" v-show="showBtn"></span>
       </div>
 
       <div class="info">
@@ -78,6 +92,7 @@ export default {
   data() {
     return {
       postData: {},
+      showBtn: true,
     };
   },
   mounted() {
@@ -124,9 +139,17 @@ export default {
       });
     },
     // 播放视频
-    playVideo() {
-      // console.log(this.$refs.video);
-      this.$refs.video.play();
+    handlePlay() {
+      if (this.showBtn) {
+        this.$refs.video.play();
+        this.showBtn = false;
+      } else {
+        this.$refs.video.pause();
+        this.showBtn = true;
+      }
+    },
+    topause() {
+      this.showBtn = true;
     },
   },
 };
@@ -141,19 +164,7 @@ export default {
   }
   .normalPost {
     padding: 0 20/360 * 100vw;
-    .header {
-      display: flex;
-      align-items: center;
 
-      .iconjiantou2 {
-        font-size: 15/360 * 100vw;
-        margin-right: 5 /360 * 100vw;
-      }
-      .iconnew {
-        flex: 1;
-        font-size: 54/360 * 100vw;
-      }
-    }
     .mainContent {
       .title {
         font-size: 18/360 * 100vw;
@@ -175,10 +186,22 @@ export default {
       }
     }
   }
+  .header {
+    display: flex;
+    align-items: center;
 
+    .iconjiantou2 {
+      font-size: 15/360 * 100vw;
+      margin-right: 5 /360 * 100vw;
+    }
+    .iconnew {
+      flex: 1;
+      font-size: 54/360 * 100vw;
+    }
+  }
   .videoPost {
     position: relative;
-
+    padding: 0 20/360 * 100vw;
     .videoWrapper {
       position: relative;
       display: flex;
