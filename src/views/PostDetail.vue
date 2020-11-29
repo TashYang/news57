@@ -114,9 +114,11 @@ export default {
         console.log(res);
         if (res.data.message == "点赞成功") {
           this.postData.has_like = true;
+          this.postData.like_length++;
           this.$toast.success(res.data.message);
         } else if (res.data.message == "取消成功") {
           this.postData.has_like = false;
+          this.postData.like_length--;
           this.$toast(res.data.message);
         }
       });
@@ -185,13 +187,6 @@ export default {
       margin-bottom: 40/360 * 100vw;
       video {
         width: 100%;
-        // position: absolute;
-      }
-      .cover {
-        position: fixed;
-        top: 24/360 * 100vw;
-        width: 100%;
-        object-fit: cover;
       }
       .iconshipin {
         position: absolute;
