@@ -19,6 +19,7 @@
             v-for="post in category.postList"
             :key="post.id"
             :postData="post"
+            @click.native="$router.push('/postDetail/' + post.id)"
           />
         </van-list>
       </van-tab>
@@ -63,7 +64,7 @@ export default {
           ...item, //  相当于复制了一样的数组
           postList: [], //   给每个分类添加了 postList的属性，每一个item都有自己的postList，而不是共用一个postList
           pageIndex: 1,
-          pageSize: 6,
+          pageSize: 7,
           // 只要拉到底部组件会自动将这个设为 true, 就不会重复发请求了
           loading: false,
           finished: false,
@@ -91,7 +92,6 @@ export default {
           ...currentCategory.postList,
           ...res.data.data,
         ];
-        // console.log(this.categoryList);
 
         // 2. 加载完数据应该通知组件, 加载状态变为 false 可以继续后面的翻页了
         currentCategory.loading = false;
@@ -100,6 +100,7 @@ export default {
         if (res.data.data.length < currentCategory.pageSize) {
           currentCategory.finished = true;
         }
+        console.log(this.categoryList);
       });
     },
     // 列表拉到最底部会触发的函数

@@ -27,6 +27,7 @@ export default {
     }).then((res) => {
       console.log(res);
       this.commentList = res.data.data;
+      console.log(this.commentList);
     });
   },
 };

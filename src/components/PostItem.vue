@@ -13,7 +13,10 @@
         <div class="title">{{ postData.title }}</div>
         <div class="info">
           <span>{{ postData.user.nickname }}</span>
-          {{ postData.comment_length }} 跟帖
+          <span v-if="postData.comments"
+            >{{ postData.comments.length }} 跟帖</span
+          >
+          <span v-else>{{ postData.comment_length }} 跟帖</span>
         </div>
       </div>
 
@@ -32,7 +35,10 @@
       </div>
       <div class="info">
         <span>{{ postData.user.nickname }}</span>
-        {{ postData.comment_length }} 跟帖
+        <span v-if="postData.comments"
+          >{{ postData.comments.length }} 跟帖</span
+        >
+        <span v-else>{{ postData.comment_length }} 跟帖</span>
       </div>
     </div>
 
@@ -48,7 +54,10 @@
       </div>
       <div class="info">
         <span>{{ postData.user.nickname }}</span>
-        {{ postData.comment_length }} 跟帖
+        <span v-if="postData.comments"
+          >{{ postData.comments.length }} 跟帖</span
+        >
+        <span v-else>{{ postData.comment_length }} 跟帖</span>
       </div>
     </div>
   </div>
