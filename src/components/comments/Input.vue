@@ -6,12 +6,12 @@
       <input type="text" placeholder="写跟帖" />
       <div class="comment">
         <span class="iconfont iconpinglun-"></span>
-        <div class="nums">112</div>
+        <div class="nums">{{ commentData.length }}</div>
       </div>
       <span
         class="iconfont iconshoucang"
         @click="handleStar"
-        :class="{ shoucang: postData.has_star }"
+        :class="{ hasStar: postData.has_star }"
       ></span>
       <span class="iconfont iconfenxiang"></span>
     </div>
@@ -25,7 +25,7 @@
 
 <script>
 export default {
-  props: ["postData"],
+  props: ["postData", "commentData"],
 
   methods: {
     handleStar() {
@@ -85,7 +85,7 @@ export default {
     .iconfont {
       font-size: 23/360 * 100vw;
 
-      &.shoucang {
+      &.hasStar {
         color: red;
       }
     }
