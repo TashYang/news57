@@ -51,10 +51,12 @@ const routes = [
   {
     path: '/postDetail/:id',
     component: PostDetail
-  }, {
+  },
+  {
     path: '/star',
     component: Star
-  }, {
+  },
+  {
     path: '/test',
     component: test
   }

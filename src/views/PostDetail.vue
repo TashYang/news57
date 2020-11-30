@@ -75,23 +75,50 @@
       </div>
       <div class="btn"><span class="iconfont iconweixin"></span> 微信</div>
     </div>
+
+    <!-- 评论 -->
+    <h2 class="commentTitle">精彩跟帖</h2>
+    <MainComment
+      v-for="comment in commentList"
+      :key="comment.id"
+      :commentData="comment"
+    />
+    <div class="btnMoreComment">更多跟帖</div>
   </div>
 </template>
 
 <script>
+import MainComment from "../components/comments/MainComment";
+import MoreComment from "../components/comments/MoreComment";
 export default {
+  components: {
+    MainComment,
+    MoreComment,
+  },
   data() {
     return {
       postData: {},
       showBtn: true,
+      commentList: [],
     };
   },
-  mounted() {
+  created() {
     this.$axios({
       url: "/post/" + this.$route.params.id,
     }).then((res) => {
       this.postData = res.data.data;
-      console.log(this.postData);
+      // console.log(this.postData);
+    });
+
+    this.$axios({
+      url: "/post_comment/" + this.$route.params.id,
+    }).then((res) => {
+      // 如果评论大于三条就截断只取三条
+      if (res.data.data.length > 3) {
+        res.data.data.length = 3;
+        this.commentList = res.data.data;
+      }
+      // console.log(this.commentList);
     });
   },
   methods: {
@@ -148,8 +175,6 @@ export default {
 
 <style lang="less" scoped>
 .postdetail {
-  border-bottom: 5px solid #ccc;
-
   /deep/ img {
     max-width: 100%;
   }
@@ -253,7 +278,7 @@ export default {
     display: flex;
     justify-content: space-evenly;
     padding: 30/360 * 100vw 0;
-
+    border-bottom: 5/360 * 100vw solid #d7d7d7;
     .btn {
       width: 79/360 * 100vw;
       height: 29/360 * 100vw;
@@ -278,6 +303,24 @@ export default {
         color: red;
       }
     }
+  }
+
+  .commentTitle {
+    text-align: center;
+    font-size: 18 /360 * 100vw;
+    font-weight: 700;
+    padding: 20 /360 * 100vw;
+  }
+  .btnMoreComment {
+    text-align: center;
+    font-size: 16 /360 * 100vw;
+    width: 121 /360 * 100vw;
+    height: 30 /360 * 100vw;
+    line-height: 30 /360 * 100vw;
+    border: 1px solid #888;
+    margin: 30 /360 * 100vw auto;
+    border-radius: 15 /360 * 100vw;
+    color: #666;
   }
 }
 </style>
