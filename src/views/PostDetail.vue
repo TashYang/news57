@@ -83,17 +83,20 @@
       :key="comment.id"
       :commentData="comment"
     />
-    <div class="btnMoreComment">更多跟帖</div>
+    <div
+      class="btnMoreComment"
+      @click="$router.push('/moreComment/' + $route.params.id)"
+    >
+      更多跟帖
+    </div>
   </div>
 </template>
 
 <script>
 import MainComment from "../components/comments/MainComment";
-import MoreComment from "../components/comments/MoreComment";
 export default {
   components: {
     MainComment,
-    MoreComment,
   },
   data() {
     return {

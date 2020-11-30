@@ -1,9 +1,15 @@
 <template>
   <div class="box">
     <div class="info">
-      <img src="../../assets/2.jpg" alt="" class="avatar" />
+      <img
+        v-if="commentData.user.head_img"
+        :src="$axios.defaults.baseURL + commentData.user.head_img"
+        alt=""
+        class="avatar"
+      />
+      <img v-else src="../../assets/2.jpg" alt="" class="avatar" />
       <div class="middle">
-        <div class="name">火星网友</div>
+        <div class="name">{{ commentData.user.nickname }}</div>
         <div class="date">2小时前</div>
       </div>
       <div class="reply">回复</div>

@@ -7,9 +7,9 @@ import User from '../views/profile/User.vue'
 import Edit from '../views/profile/Edit.vue'
 import Follow from '@/views//profile/Follow'
 import PostDetail from '../views/PostDetail'
-import Star from '@/views//profile/Star'
+import Star from '@/views/profile/Star'
 import test from '@/views/test'
-
+import MoreComment from '../views/MoreComment'
 
 
 Vue.use(VueRouter)
@@ -59,6 +59,10 @@ const routes = [
   {
     path: '/test',
     component: test
+  },
+  {
+    path: '/moreComment/:id',
+    component: MoreComment
   }
 
 ]
