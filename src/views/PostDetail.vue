@@ -128,7 +128,6 @@ export default {
         res.data.data.length = 3;
         this.commentList = res.data.data;
       }
-      // console.log(this.commentList);
     });
   },
   methods: {
@@ -247,8 +246,8 @@ export default {
         align-items: center;
         margin: 10 /360 * 100vw 0;
         .cover {
-          width: 0;
-          // height: 1px;
+          width: 100%;
+          height: 50px;
           opacity: 0;
         }
         .iconshipin {

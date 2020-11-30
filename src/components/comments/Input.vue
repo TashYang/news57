@@ -30,7 +30,7 @@ export default {
   methods: {
     handleStar() {
       this.$axios({
-        url: "/post_star/" + this.$route.params.id,
+        url: "/post_star/" + this.postData.id,
       }).then((res) => {
         if (res.data.message == "收藏成功") {
           this.$toast.success(res.data.message);
