@@ -8,7 +8,11 @@
         <span class="iconfont iconpinglun-"></span>
         <div class="nums">112</div>
       </div>
-      <span class="iconfont iconshoucang"></span>
+      <span
+        class="iconfont iconshoucang"
+        @click="handleStar"
+        :class="{ shoucang: postData.has_star }"
+      ></span>
       <span class="iconfont iconfenxiang"></span>
     </div>
     <!-- 展开时 -->
@@ -20,7 +24,25 @@
 </template>
 
 <script>
-export default {};
+export default {
+  props: ["postData"],
+
+  methods: {
+    handleStar() {
+      this.$axios({
+        url: "/post_star/" + this.$route.params.id,
+      }).then((res) => {
+        if (res.data.message == "收藏成功") {
+          this.$toast.success(res.data.message);
+          this.postData.has_star = true;
+        } else {
+          this.$toast(res.data.message);
+          this.postData.has_star = false;
+        }
+      });
+    },
+  },
+};
 </script>
 
 <style lang="less" scoped>
@@ -62,6 +84,10 @@ export default {};
     }
     .iconfont {
       font-size: 23/360 * 100vw;
+
+      &.shoucang {
+        color: red;
+      }
     }
   }
   .active {

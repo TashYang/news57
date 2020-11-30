@@ -93,7 +93,7 @@
     >
       更多跟帖
     </div>
-    <Input />
+    <Input :postData="postData" />
   </div>
 </template>
 
@@ -117,7 +117,7 @@ export default {
       url: "/post/" + this.$route.params.id,
     }).then((res) => {
       this.postData = res.data.data;
-      // console.log(this.postData);
+      console.log(this.postData);
     });
 
     this.$axios({
