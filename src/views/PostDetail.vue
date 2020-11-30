@@ -89,14 +89,17 @@
     >
       更多跟帖
     </div>
+    <Input />
   </div>
 </template>
 
 <script>
 import MainComment from "../components/comments/MainComment";
+import Input from "../components/comments/Input";
 export default {
   components: {
     MainComment,
+    Input,
   },
   data() {
     return {
@@ -321,7 +324,7 @@ export default {
     height: 30 /360 * 100vw;
     line-height: 30 /360 * 100vw;
     border: 1px solid #888;
-    margin: 30 /360 * 100vw auto;
+    margin: 30 /360 * 100vw auto 70/360 * 100vw;
     border-radius: 15 /360 * 100vw;
     color: #666;
   }
