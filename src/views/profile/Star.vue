@@ -27,8 +27,8 @@ export default {
     this.$axios({
       url: "/user_star",
     }).then((res) => {
-      console.log(res);
       this.postList = res.data.data;
+      console.log(this.postList);
     });
   },
 };
