@@ -93,7 +93,7 @@
     >
       更多跟帖
     </div>
-    <Input :postData="postData" :commentData="commentList" />
+    <Input :postData="postData" />
   </div>
 </template>
 

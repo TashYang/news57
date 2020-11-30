@@ -2,11 +2,11 @@
   <!-- 写跟帖 -->
   <div class="footerInput">
     <!-- 收起时 -->
-    <div class="deactive" v-if="true">
-      <input type="text" placeholder="写跟帖" />
+    <div class="deactive" v-if="!isShowTextarea" @click="isShowTextarea = true">
+      <input type="text" placeholder="写跟帖" v-focus />
       <div class="comment">
         <span class="iconfont iconpinglun-"></span>
-        <div class="nums">{{ commentData.length }}</div>
+        <div class="nums">112</div>
       </div>
       <span
         class="iconfont iconshoucang"
@@ -16,8 +16,8 @@
       <span class="iconfont iconfenxiang"></span>
     </div>
     <!-- 展开时 -->
-    <div class="active" v-if="false">
-      <textarea rows="3"></textarea>
+    <div class="active" v-if="isShowTextarea">
+      <textarea rows="3" v-focus></textarea>
       <div class="btn">发送</div>
     </div>
   </div>
@@ -26,8 +26,13 @@
 <script>
 export default {
   props: ["postData", "commentData"],
-
+  data() {
+    return {
+      isShowTextarea: false,
+    };
+  },
   methods: {
+    // 控制是否收藏
     handleStar() {
       this.$axios({
         url: "/post_star/" + this.postData.id,
@@ -41,7 +46,22 @@ export default {
         }
       });
     },
+
+    // 是否显示文本域
+    // showTextarea(){
+    //   if(isShowTextarea){
+
+    //   }
+    // }
   },
+  //  局部设置自定义 v-focus 指令
+  // directives: {
+  //   focus: {
+  //     inserted(el) {
+  //       el.focus();
+  //     },
+  //   },
+  // },
 };
 </script>
 
