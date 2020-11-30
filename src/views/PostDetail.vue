@@ -30,15 +30,19 @@
         <span class="iconfont iconjiantou2" @click="$router.back()"></span>
         <span class="iconfont iconnew"></span>
       </div>
-      <div class="videoWrapper" @click="handlePlay">
+      <div class="videoWrapper">
         <video
           ref="video"
           controls
-          @pause="topause"
-          poster="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1606477226840&di=c2de4a1fa5bdafcd822bf257b067f372&imgtype=0&src=http%3A%2F%2Fn.sinaimg.cn%2Fsinacn16%2F350%2Fw690h460%2F20181121%2F7485-hnyuqhi6466138.jpg"
+          @pause="toPause"
+          @play="toPlay"
+          poster="@/assets/2.jpg"
           src=" https://video.pearvideo.com/mp4/adshort/20200421/cont-1670293-15098199_adpkg-ad_hd.mp4"
         ></video>
-        <span class="iconfont iconshipin" v-show="showBtn"></span>
+        <div class="coverWrapper" @click="handlePlay">
+          <img src="@/assets/2.jpg" alt="" class="cover" />
+          <span class="iconfont iconshipin" v-show="showBtn"></span>
+        </div>
       </div>
 
       <div class="info">
@@ -172,8 +176,11 @@ export default {
         this.showBtn = true;
       }
     },
-    topause() {
+    toPause() {
       this.showBtn = true;
+    },
+    toPlay() {
+      this.showBtn = false;
     },
   },
 };
@@ -233,12 +240,24 @@ export default {
       video {
         width: 100%;
       }
-      .iconshipin {
+      .coverWrapper {
         position: absolute;
-        color: #fff;
-        background-color: rgba(0, 0, 0, 0.3);
-        font-size: 46 /360 * 100vw;
-        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 10 /360 * 100vw 0;
+        .cover {
+          width: 0;
+          // height: 1px;
+          opacity: 0;
+        }
+        .iconshipin {
+          position: absolute;
+          color: #fff;
+          background-color: rgba(0, 0, 0, 0.3);
+          font-size: 46 /360 * 100vw;
+          border-radius: 50%;
+        }
       }
     }
     .info {
