@@ -71,6 +71,7 @@ export default {
     font-size: 16 /360 * 100vw;
     color: #333;
     margin-top: 6 /360 * 100vw;
+    word-break: break-all;
   }
 }
 </style>

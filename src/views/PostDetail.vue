@@ -214,6 +214,7 @@ export default {
       .content {
         font-size: 14/360 * 100vw;
         line-height: 28/360 * 100vw;
+        word-break: break-all;
       }
     }
   }

@@ -12,6 +12,7 @@ import test from '@/views/test'
 import MoreComment from '../views/MoreComment'
 import Search from '../views/Search'
 import Comment from '@/views/profile/Comment'
+import AllComment from '@/views/profile/AllComment'
 
 Vue.use(VueRouter)
 
@@ -78,7 +79,14 @@ const routes = [
     meta: {
       needAuth: true
     }
+  }, {
+    path: "/allcomment",
+    component: AllComment,
+    meta: {
+      needAuth: true
+    }
   }
+
 
 ]
 
