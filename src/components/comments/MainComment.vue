@@ -12,7 +12,7 @@
         <div class="name">{{ commentData.user.nickname }}</div>
         <div class="date">2小时前</div>
       </div>
-      <div class="reply">回复</div>
+      <div class="reply" @click="sendComment">回复</div>
     </div>
 
     <Parent v-if="commentData.parent" :parentData="commentData.parent" />
@@ -27,6 +27,11 @@ export default {
   props: ["commentData"],
   components: {
     Parent,
+  },
+  methods: {
+    sendComment() {
+      eventBus.$emit("sendMsg", this.commentData.id);
+    },
   },
 };
 </script>

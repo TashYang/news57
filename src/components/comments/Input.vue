@@ -41,8 +41,20 @@ export default {
     return {
       isShowTextarea: false,
       content: "",
-      commentList: "",
+      parentId: "",
     };
+  },
+  mounted() {
+    // 页面挂载完毕, 利用事件总线 eventBus监听评论回复请求
+    eventBus.$on("sendMsg", (parentId) => {
+      this.showTextarea();
+      this.parentId = parentId;
+    });
+  },
+  // 用了事件总线的监听, 记得做一件事情
+  // 在销毁组件的时候, 清除这个监听
+  destroyed() {
+    eventBus.$off("sendMsg");
   },
   methods: {
     // 控制是否收藏
@@ -81,11 +93,10 @@ export default {
         method: "post",
         data: {
           content: this.content,
-          parent_id: "",
+          parent_id: this.parentId,
         },
       }).then((res) => {
         console.log(res.data);
-        this.commentList = res.data.data;
         this.content = "";
       });
     },
@@ -151,6 +162,7 @@ export default {
       border-radius: 10 /360 * 100vw;
       padding: 10 /360 * 100vw;
       box-sizing: border-box;
+      resize: none;
     }
     .btn {
       background: red;
