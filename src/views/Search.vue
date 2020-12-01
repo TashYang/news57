@@ -128,6 +128,7 @@ export default {
   }
   .list {
     display: flex;
+    flex-wrap: wrap;
     .item {
       padding: 10 /360 * 100vw;
       padding-left: 0;

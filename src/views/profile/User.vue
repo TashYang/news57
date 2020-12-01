@@ -30,7 +30,11 @@
       message="关注的用户"
       @click.native="$router.push('/follow')"
     />
-    <ProfileBar text="我的跟帖" message="跟帖/回复" />
+    <ProfileBar
+      text="我的跟帖"
+      message="跟帖/回复"
+      @click.native="$router.push('/comment')"
+    />
     <ProfileBar
       text="我的收藏"
       message="文章/视频"

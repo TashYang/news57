@@ -11,6 +11,7 @@ import Star from '@/views/profile/Star'
 import test from '@/views/test'
 import MoreComment from '../views/MoreComment'
 import Search from '../views/Search'
+import Comment from '@/views/profile/Comment'
 
 Vue.use(VueRouter)
 
@@ -67,6 +68,13 @@ const routes = [
   {
     path: '/search',
     component: Search,
+    meta: {
+      needAuth: true
+    }
+  },
+  {
+    path: "/comment",
+    component: Comment,
     meta: {
       needAuth: true
     }
