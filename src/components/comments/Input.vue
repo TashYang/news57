@@ -84,6 +84,8 @@ export default {
       // 点击发送会导致认为是失去焦点而隐藏文本域，所以需要延时隐藏
       setTimeout(() => {
         this.isShowTextarea = false;
+        // 下次回复时不选中楼层里的评论
+        this.parentId = "";
       }, 100);
     },
 
@@ -96,8 +98,9 @@ export default {
           parent_id: this.parentId,
         },
       }).then((res) => {
-        console.log(res.data);
         this.content = "";
+        // 发布评论后，告诉父组件重新获取评论
+        this.$emit("reloadComment");
       });
     },
   },

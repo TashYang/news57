@@ -93,7 +93,7 @@
     >
       更多跟帖
     </div>
-    <Input :postData="postData" />
+    <Input :postData="postData" @reloadComment="reloadComment" />
   </div>
 </template>
 
@@ -119,18 +119,21 @@ export default {
       this.postData = res.data.data;
       console.log(this.postData);
     });
-
-    this.$axios({
-      url: "/post_comment/" + this.$route.params.id,
-    }).then((res) => {
-      // 如果评论大于三条就截断只取三条
-      if (res.data.data.length > 3) {
-        res.data.data.length = 3;
-      }
-      this.commentList = res.data.data;
-    });
+    this.reloadComment();
   },
   methods: {
+    reloadComment() {
+      this.$axios({
+        url: "/post_comment/" + this.$route.params.id,
+      }).then((res) => {
+        // 如果评论大于三条就截断只取三条
+        if (res.data.data.length > 3) {
+          res.data.data.length = 3;
+        }
+        this.commentList = res.data.data;
+      });
+    },
+
     // 关注按钮的切换
     handleFollow() {
       if (this.postData.has_follow) {
