@@ -124,11 +124,10 @@ export default {
       url: "/post_comment/" + this.$route.params.id,
     }).then((res) => {
       // 如果评论大于三条就截断只取三条
-      console.log(res.data.data);
       if (res.data.data.length > 3) {
         res.data.data.length = 3;
-        this.commentList = res.data.data;
       }
+      this.commentList = res.data.data;
     });
   },
   methods: {
@@ -138,7 +137,6 @@ export default {
         this.$axios({
           url: "/user_unfollow/" + this.postData.user.id,
         }).then((res) => {
-          // console.log(res);
           this.postData.has_follow = false;
         });
       } else {

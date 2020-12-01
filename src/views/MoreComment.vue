@@ -25,9 +25,7 @@ export default {
     this.$axios({
       url: "/post_comment/" + this.$route.params.id,
     }).then((res) => {
-      console.log(res);
       this.commentList = res.data.data;
-      console.log(this.commentList);
     });
   },
 };

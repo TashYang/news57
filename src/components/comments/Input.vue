@@ -3,7 +3,12 @@
   <div class="footerInput">
     <!-- 收起时 -->
     <div class="deactive" v-if="!isShowTextarea">
-      <input type="text" placeholder="写跟帖" @click="showTextarea" />
+      <input
+        type="text"
+        placeholder="写跟帖"
+        @focus="showTextarea"
+        v-model="content"
+      />
       <div class="comment">
         <span class="iconfont iconpinglun-"></span>
         <div class="nums">112</div>
@@ -17,8 +22,13 @@
     </div>
     <!-- 展开时 -->
     <div class="active" v-if="isShowTextarea">
-      <textarea rows="3" @blur="hideTextarea" ref="txtarea"></textarea>
-      <div class="btn">发送</div>
+      <textarea
+        rows="3"
+        @blur="hideTextarea"
+        ref="txtarea"
+        v-model="content"
+      ></textarea>
+      <div class="btn" @click="sendComment">发送</div>
     </div>
   </div>
 </template>
@@ -30,6 +40,8 @@ export default {
   data() {
     return {
       isShowTextarea: false,
+      content: "",
+      commentList: "",
     };
   },
   methods: {
@@ -57,7 +69,25 @@ export default {
       });
     },
     hideTextarea() {
-      this.isShowTextarea = false;
+      // 点击发送会导致认为是失去焦点而隐藏文本域，所以需要延时隐藏
+      setTimeout(() => {
+        this.isShowTextarea = false;
+      }, 100);
+    },
+
+    sendComment() {
+      this.$axios({
+        url: "/post_comment/" + this.$route.params.id,
+        method: "post",
+        data: {
+          content: this.content,
+          parent_id: "",
+        },
+      }).then((res) => {
+        console.log(res.data);
+        this.commentList = res.data.data;
+        this.content = "";
+      });
     },
   },
 };
