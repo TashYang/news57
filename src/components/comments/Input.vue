@@ -2,8 +2,13 @@
   <!-- 写跟帖 -->
   <div class="footerInput">
     <!-- 收起时 -->
-    <div class="deactive" v-if="!isShowTextarea" @click="isShowTextarea = true">
-      <input type="text" placeholder="写跟帖" v-focus />
+    <div class="deactive" v-if="!isShowTextarea">
+      <input
+        type="text"
+        placeholder="写跟帖"
+        v-focus
+        @click="isShowTextarea = true"
+      />
       <div class="comment">
         <span class="iconfont iconpinglun-"></span>
         <div class="nums">112</div>
@@ -24,6 +29,7 @@
 </template>
 
 <script>
+import eventBus from "../../utils/eventBus";
 export default {
   props: ["postData", "commentData"],
   data() {
@@ -46,13 +52,6 @@ export default {
         }
       });
     },
-
-    // 是否显示文本域
-    // showTextarea(){
-    //   if(isShowTextarea){
-
-    //   }
-    // }
   },
   //  局部设置自定义 v-focus 指令
   // directives: {

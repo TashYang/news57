@@ -21,8 +21,8 @@
 </template>
 
 <script>
-import Parent from "../comments/Parent";
-
+import Parent from "./Parent";
+import eventBus from "../../utils/eventBus";
 export default {
   props: ["commentData"],
   components: {

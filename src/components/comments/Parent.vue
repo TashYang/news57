@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import eventBus from "../../utils/eventBus";
 export default {
   name: "Parent",
   props: ["parentData"],
