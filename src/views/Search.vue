@@ -47,6 +47,7 @@ export default {
   },
   watch: {
     keyword(newVal) {
+      console.log(newVal);
       if (!newVal) {
         this.postList = [];
       }
@@ -71,6 +72,7 @@ export default {
       }).then((res) => {
         this.postList = res.data.data;
       });
+      //   this.keyword = "";
     },
     goback() {
       // 如果搜索栏还有关键字就清空搜索栏，没有的话再跳回上一页
