@@ -22,12 +22,14 @@
     </div>
     <!-- 展开时 -->
     <div class="active" v-if="isShowTextarea">
-      <textarea
-        rows="3"
-        @blur="hideTextarea"
-        ref="txtarea"
-        v-model="content"
-      ></textarea>
+      <div class="answer">
+        <textarea
+          rows="3"
+          @blur="hideTextarea"
+          ref="txtarea"
+          v-model="content"
+        ></textarea>
+      </div>
       <div class="btn" @click="sendComment">发送</div>
     </div>
   </div>
@@ -47,10 +49,9 @@ export default {
   },
   mounted() {
     // 页面挂载完毕, 利用事件总线 eventBus监听评论回复请求
-    eventBus.$on("sendMsg", (parentId, nickname) => {
+    eventBus.$on("sendMsg", (parentId) => {
       this.showTextarea();
       this.parentId = parentId;
-      this.content = "回复:@" + nickname + "  ";
     });
   },
   // 用了事件总线的监听, 记得做一件事情
@@ -159,6 +160,18 @@ export default {
     align-items: flex-end;
     padding: 10 /360 * 100vw;
     position: relative;
+
+    .answer {
+      display: flex;
+      position: relative;
+      .reply {
+        position: absolute;
+        left: 5/360 * 100vw;
+        top: 8/360 * 100vw;
+        color: #888;
+        font-size: 14/360 * 100vw;
+      }
+    }
     textarea {
       width: 260 /360 * 100vw;
       height: 90 /360 * 100vw;
