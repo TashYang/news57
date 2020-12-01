@@ -1,6 +1,16 @@
 <template>
   <div class="container">
     <TopNav title="我的关注" />
+    <div class="search">
+      <input
+        type="text"
+        class="idInput"
+        placeholder="请输入要关注的用户id"
+        v-model="searchId"
+      />
+      <span class="iconfont iconsearch" @click="followUser"></span>
+    </div>
+
     <div class="fence" v-for="item in followList" :key="item.id">
       <img
         v-if="item.head_img"
@@ -27,6 +37,7 @@ export default {
   data() {
     return {
       followList: [],
+      searchId: "",
     };
   },
   created() {
@@ -49,12 +60,43 @@ export default {
         this.loadPage();
       });
     },
+    followUser(searchId) {
+      const pattern = /^\d{1,6}$/;
+      if (pattern.test(this.searchId)) {
+        this.$axios({
+          url: "/user_follows/" + this.searchId,
+        }).then((res) => {
+          this.searchId = "";
+          this.loadPage();
+        });
+      } else {
+        this.$toast("请输入正确的id名");
+      }
+    },
   },
 };
 </script>
 
 <style lang="less" scoped>
 .container {
+  .search {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .idInput {
+      width: 200/360 * 100vw;
+      height: 28/360 * 100vw;
+      background-color: #d7d7d7;
+      padding-left: 10/360 * 100vw;
+      border: none;
+      outline: none;
+    }
+    .iconsearch {
+      font-size: 25/360 * 100vw;
+      color: #6cf;
+    }
+  }
+
   .fence {
     display: flex;
     align-items: center;

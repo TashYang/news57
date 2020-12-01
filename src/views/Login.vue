@@ -45,7 +45,6 @@ export default {
     },
     setPassword(newVal) {
       this.password = newVal;
-      console.log(this.password);
     },
     login() {
       if (this.username && this.password) {
