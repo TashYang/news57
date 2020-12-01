@@ -131,6 +131,7 @@ export default {
           res.data.data.length = 3;
         }
         this.commentList = res.data.data;
+        console.log(this.commentList);
       });
     },
 

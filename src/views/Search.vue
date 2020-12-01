@@ -1,25 +1,93 @@
 <template>
   <div>
     <div class="header">
-      <span class="iconfont iconjiantou2"></span>
+      <span class="iconfont iconjiantou2" @click="goback"></span>
       <div class="search">
         <span class="iconfont iconsearch"></span>
-        <input type="text" />
+        <input type="text" v-model="keyword" />
       </div>
-      <div class="btn">搜索</div>
+      <div class="btn" @click="handleSearch">搜索</div>
     </div>
-    <div class="historyList">
+    <div class="historyList" v-if="postList.length == 0">
       <h2>历史记录</h2>
       <div class="list">
-        <div class="item">华为</div>
-        <div class="item">苹果</div>
+        <div
+          class="item"
+          v-for="(item, index) in history"
+          :key="index"
+          @click="searchHistory(item)"
+        >
+          {{ item }}
+        </div>
       </div>
+    </div>
+    <div class="resList">
+      <PostItem
+        :postData="post"
+        v-for="post in postList"
+        :key="post.id"
+        @click.native="$router.push('/postDetail/' + post.id)"
+      />
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+import PostItem from "../components/PostItem";
+export default {
+  components: {
+    PostItem,
+  },
+  data() {
+    return {
+      keyword: "",
+      postList: [],
+      history: [],
+    };
+  },
+  watch: {
+    keyword(newVal) {
+      if (!newVal) {
+        this.postList = [];
+      }
+    },
+    history() {
+      // 历史记录持久化第一步,每当数组变化就要存入 localStorage
+      localStorage.setItem("history", JSON.stringify(this.history));
+    },
+  },
+  created() {
+    // 历史记录持久化第二步,如果进入页面时发现本地储存有历史数据, 应该恢复
+    if (localStorage.getItem("history")) {
+      this.history = JSON.parse(localStorage.getItem("history"));
+    }
+  },
+  methods: {
+    handleSearch() {
+      this.history.push(this.keyword);
+      this.$axios({
+        url: "/post_search",
+        params: { keyword: this.keyword },
+      }).then((res) => {
+        this.postList = res.data.data;
+      });
+    },
+    goback() {
+      // 如果搜索栏还有关键字就清空搜索栏，没有的话再跳回上一页
+      if (this.postList.length > 0) {
+        this.postList = [];
+        this.keyword = "";
+      } else {
+        this.$router.back();
+      }
+    },
+    // 点击历史记录会出现关联文章
+    searchHistory(item) {
+      this.keyword = item;
+      this.handleSearch();
+    },
+  },
+};
 </script>
 <style lang="less" scoped>
 .header {
