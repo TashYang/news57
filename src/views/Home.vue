@@ -1,6 +1,6 @@
 <template>
   <div>
-    <HomeHeader />
+    <HomeHeader @click.native="$router.push('/search')" />
     <van-tabs v-model="activeIndex" background="#e4e4e4">
       <van-tab
         :title="category.name"

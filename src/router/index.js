@@ -10,7 +10,7 @@ import PostDetail from '../views/PostDetail'
 import Star from '@/views/profile/Star'
 import test from '@/views/test'
 import MoreComment from '../views/MoreComment'
-
+import Search from '../views/Search'
 
 Vue.use(VueRouter)
 
@@ -63,6 +63,13 @@ const routes = [
   {
     path: '/moreComment/:id',
     component: MoreComment
+  },
+  {
+    path: '/search',
+    component: Search,
+    meta: {
+      needAuth: true
+    }
   }
 
 ]
