@@ -30,7 +30,11 @@ export default {
   },
   methods: {
     sendComment() {
-      eventBus.$emit("sendMsg", this.commentData.id);
+      eventBus.$emit(
+        "sendMsg",
+        this.commentData.id,
+        this.commentData.user.nickname
+      );
     },
   },
 };

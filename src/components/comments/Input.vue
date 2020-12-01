@@ -42,13 +42,15 @@ export default {
       isShowTextarea: false,
       content: "",
       parentId: "",
+      nickname: "",
     };
   },
   mounted() {
     // 页面挂载完毕, 利用事件总线 eventBus监听评论回复请求
-    eventBus.$on("sendMsg", (parentId) => {
+    eventBus.$on("sendMsg", (parentId, nickname) => {
       this.showTextarea();
       this.parentId = parentId;
+      this.content = "回复:@" + nickname + "  ";
     });
   },
   // 用了事件总线的监听, 记得做一件事情
@@ -156,6 +158,7 @@ export default {
     display: flex;
     align-items: flex-end;
     padding: 10 /360 * 100vw;
+    position: relative;
     textarea {
       width: 260 /360 * 100vw;
       height: 90 /360 * 100vw;
