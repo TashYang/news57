@@ -53,13 +53,6 @@ Vue.config.productionTip = false
 // 3. 注册 vant ui 组件库的标签
 Vue.use(Vant)
 
-// 设置全局的 v-focus指令
-Vue.directive('focus', {
-  inserted(el) {
-    el.focus();
-  },
-})
-
 
 new Vue({
   router,

@@ -3,12 +3,7 @@
   <div class="footerInput">
     <!-- 收起时 -->
     <div class="deactive" v-if="!isShowTextarea">
-      <input
-        type="text"
-        placeholder="写跟帖"
-        v-focus
-        @click="isShowTextarea = true"
-      />
+      <input type="text" placeholder="写跟帖" @click="showTextarea" />
       <div class="comment">
         <span class="iconfont iconpinglun-"></span>
         <div class="nums">112</div>
@@ -22,7 +17,7 @@
     </div>
     <!-- 展开时 -->
     <div class="active" v-if="isShowTextarea">
-      <textarea rows="3" v-focus></textarea>
+      <textarea rows="3" @blur="hideTextarea" ref="txtarea"></textarea>
       <div class="btn">发送</div>
     </div>
   </div>
@@ -52,15 +47,19 @@ export default {
         }
       });
     },
+
+    // 控制是否展开文本域
+    showTextarea() {
+      this.isShowTextarea = true;
+      // 展开文本域后聚焦,需设置函数
+      this.$nextTick(() => {
+        this.$refs.txtarea.focus();
+      });
+    },
+    hideTextarea() {
+      this.isShowTextarea = false;
+    },
   },
-  //  局部设置自定义 v-focus 指令
-  // directives: {
-  //   focus: {
-  //     inserted(el) {
-  //       el.focus();
-  //     },
-  //   },
-  // },
 };
 </script>
 
