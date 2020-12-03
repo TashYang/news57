@@ -57,7 +57,6 @@ export default {
     this.$axios({
       url: "/category",
     }).then((res) => {
-      // this.categoryList = res.data.data
       this.categoryList = res.data.data.map((item) => {
         // .map 映射一个新的数组
         return {
@@ -69,6 +68,9 @@ export default {
           loading: false,
           finished: false,
         };
+      });
+      this.categoryList.push({
+        name: "+",
       });
       this.loadPost();
     });
@@ -115,4 +117,11 @@ export default {
 </script>
 
 <style lang="less" scoped>
+/deep/ .van-tab:nth-last-child(2) {
+  background: #e4e4e4;
+  position: sticky;
+  right: -8px;
+  width: 44px;
+  line-height: 44px;
+}
 </style>
