@@ -68,7 +68,6 @@ export default {
   },
   methods: {
     deactive(index) {
-      console.log(this.activeList[index]);
       this.deactiveList.push(this.activeList[index]);
       this.activeList.splice(index, 1);
     },

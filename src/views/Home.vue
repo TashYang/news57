@@ -57,9 +57,13 @@ export default {
   },
 
   created() {
-    this.$axios({
-      url: "/category",
-    }).then((res) => {
+    // 先判定本地是否有存储的栏目，有的话直接显示已有的栏目，没有再发送请求
+    if (localStorage.getItem("activeList")) {
+      const res = {
+        data: {
+          data: JSON.parse(localStorage.getItem("activeList")),
+        },
+      };
       this.categoryList = res.data.data.map((item) => {
         // .map 映射一个新的数组
         return {
@@ -76,7 +80,28 @@ export default {
         name: "+",
       });
       this.loadPost();
-    });
+    } else {
+      this.$axios({
+        url: "/category",
+      }).then((res) => {
+        this.categoryList = res.data.data.map((item) => {
+          // .map 映射一个新的数组
+          return {
+            ...item, //  相当于复制了一样的数组
+            postList: [], //   给每个分类添加了 postList的属性，每一个item都有自己的postList，而不是共用一个postList
+            pageIndex: 1,
+            pageSize: 7,
+            // 只要拉到底部组件会自动将这个设为 true, 就不会重复发请求了
+            loading: false,
+            finished: false,
+          };
+        });
+        this.categoryList.push({
+          name: "+",
+        });
+        this.loadPost();
+      });
+    }
   },
   methods: {
     loadPost() {
