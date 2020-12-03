@@ -44,15 +44,18 @@ export default {
   // 监控激活状态
   watch: {
     // 切换分类会触发这个监听器
-    activeIndex() {
+    activeIndex(newVal) {
       const currentCategory = this.categoryList[this.activeIndex];
-      // console.log(currentCategory.postList.length);
-      // 当前栏目如果已经有文章就不需要再获取
-      if (currentCategory.postList.length == 0) {
+      // 如果栏目页激活的是倒数第二个标签，就跳转页面
+      if (newVal == this.categoryList.length - 1) {
+        this.$router.push("/manage");
+        // 当前栏目如果已经有文章就不需要再获取
+      } else if (currentCategory.postList.length == 0) {
         this.loadPost();
       }
     },
   },
+
   created() {
     this.$axios({
       url: "/category",
