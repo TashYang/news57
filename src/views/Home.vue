@@ -61,6 +61,7 @@ export default {
     if (localStorage.getItem("activeList")) {
       const res = {
         data: {
+          // 自己创建res.data.data
           data: JSON.parse(localStorage.getItem("activeList")),
         },
       };
@@ -85,13 +86,11 @@ export default {
         url: "/category",
       }).then((res) => {
         this.categoryList = res.data.data.map((item) => {
-          // .map 映射一个新的数组
           return {
-            ...item, //  相当于复制了一样的数组
-            postList: [], //   给每个分类添加了 postList的属性，每一个item都有自己的postList，而不是共用一个postList
+            ...item,
+            postList: [],
             pageIndex: 1,
             pageSize: 7,
-            // 只要拉到底部组件会自动将这个设为 true, 就不会重复发请求了
             loading: false,
             finished: false,
           };
