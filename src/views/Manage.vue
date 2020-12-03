@@ -4,7 +4,12 @@
     <div class="activeList">
       <h2>点击删除以下频道</h2>
       <div class="list">
-        <div class="item" v-for="item in activeList" :key="item.id">
+        <div
+          class="item"
+          v-for="(item, index) in activeList"
+          :key="item.id"
+          @click="deactive(index)"
+        >
           {{ item.name }}
         </div>
       </div>
@@ -12,8 +17,13 @@
     <div class="deactiveList">
       <h2>点击添加以下频道</h2>
       <div class="list">
-        <div class="item" v-for="item in deactiveList" :key="item.id">
-          {{ item.id }}
+        <div
+          class="item"
+          v-for="(item, index) in deactiveList"
+          :key="item.id"
+          @click="active(index)"
+        >
+          {{ item.name }}
         </div>
       </div>
     </div>
@@ -33,12 +43,39 @@ export default {
     };
   },
   created() {
-    this.$axios({
-      url: "/category",
-    }).then((res) => {
-      console.log(res);
-      this.activeList = res.data.data;
-    });
+    // 先判定本地是否有栏目，没有的话再发送请求
+    if (localStorage.getItem("activeList")) {
+      this.activeList = JSON.parse(localStorage.getItem("activeList"));
+      if (localStorage.getItem("deactiveList")) {
+        this.deactiveList = JSON.parse(localStorage.getItem("deactiveList"));
+      }
+    } else {
+      this.$axios({
+        url: "/category",
+      }).then((res) => {
+        this.activeList = res.data.data;
+      });
+    }
+  },
+  watch: {
+    // 监听栏目，保存数据到本地
+    activeList() {
+      localStorage.setItem("activeList", JSON.stringify(this.activeList));
+    },
+    deactiveList() {
+      localStorage.setItem("deactiveList", JSON.stringify(this.deactiveList));
+    },
+  },
+  methods: {
+    deactive(index) {
+      console.log(this.activeList[index]);
+      this.deactiveList.push(this.activeList[index]);
+      this.activeList.splice(index, 1);
+    },
+    active(index) {
+      this.activeList.push(this.deactiveList[index]);
+      this.deactiveList.splice(index, 1);
+    },
   },
 };
 </script>
