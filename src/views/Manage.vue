@@ -20,7 +20,7 @@
         <div
           class="item"
           v-for="(item, index) in deactiveList"
-          :key="item.id"
+          :key="index"
           @click="active(index)"
         >
           {{ item.name }}
@@ -68,6 +68,10 @@ export default {
   },
   methods: {
     deactive(index) {
+      // 判断激活的栏目，至少得有一个
+      if (this.activeList.length == 1) {
+        return;
+      }
       this.deactiveList.push(this.activeList[index]);
       this.activeList.splice(index, 1);
     },

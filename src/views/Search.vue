@@ -65,7 +65,11 @@ export default {
   },
   methods: {
     handleSearch() {
-      this.history.push(this.keyword);
+      // 如果没有搜索过的关键词再添加到搜索记录里，有的花则不添加
+      if (this.history.indexOf(this.keyword) == -1) {
+        this.history.push(this.keyword);
+      }
+
       this.$axios({
         url: "/post_search",
         params: { keyword: this.keyword },
