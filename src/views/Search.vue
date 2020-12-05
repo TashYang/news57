@@ -13,7 +13,7 @@
       <div class="list">
         <div
           class="item"
-          v-for="(item, index) in history"
+          v-for="(item, index) in $store.state.historyList"
           :key="index"
           @click="searchHistory(item)"
         >
@@ -34,6 +34,7 @@
 
 <script>
 import PostItem from "../components/PostItem";
+
 export default {
   components: {
     PostItem,
@@ -42,7 +43,7 @@ export default {
     return {
       keyword: "",
       postList: [],
-      history: [],
+      // history: [],
     };
   },
   watch: {
@@ -52,23 +53,28 @@ export default {
         this.postList = [];
       }
     },
-    history() {
+    "$store.state.historyList": function () {
       // 历史记录持久化第一步,每当数组变化就要存入 localStorage
-      localStorage.setItem("history", JSON.stringify(this.history));
+      localStorage.setItem(
+        "history",
+        JSON.stringify(this.$store.state.historyList)
+      );
     },
   },
   created() {
     // 历史记录持久化第二步,如果进入页面时发现本地储存有历史数据, 应该恢复
     if (localStorage.getItem("history")) {
-      this.history = JSON.parse(localStorage.getItem("history"));
+      const oldHistory = JSON.parse(localStorage.getItem("history"));
+      this.$store.commit("recoverHistory", oldHistory);
     }
   },
   methods: {
     handleSearch() {
       // 如果没有搜索过的关键词再添加到搜索记录里，有的花则不添加
-      if (this.history.indexOf(this.keyword) == -1) {
-        this.history.push(this.keyword);
-      }
+      // if (this.history.indexOf(this.keyword) == -1) {
+      //   this.history.push(this.keyword);
+      // }
+      this.$store.commit("addHistory", this.keyword);
 
       this.$axios({
         url: "/post_search",

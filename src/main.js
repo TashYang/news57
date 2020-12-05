@@ -54,7 +54,27 @@ Vue.config.productionTip = false
 Vue.use(Vant)
 
 
+// 引入Vuex
+import Vuex from 'vuex'
+Vue.use(Vuex)
+const store = new Vuex.Store({
+  state: {
+    historyList: []
+  },
+  mutations: {
+    addHistory(state, data) {
+      if (state.historyList.indexOf(data) === -1) {
+        state.historyList.push(data)
+      }
+    },
+    recoverHistory(state, data) {
+      state.historyList = data
+    }
+  }
+})
+
 new Vue({
   router,
+  store,
   render: function (h) { return h(App) }
 }).$mount('#app')
