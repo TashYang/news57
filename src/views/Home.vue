@@ -1,7 +1,7 @@
 <template>
   <div>
     <HomeHeader />
-    <van-tabs v-model="activeIndex" background="#e4e4e4">
+    <van-tabs v-model="activeIndex" background="#e4e4e4" sticky>
       <van-tab
         :title="category.name"
         v-for="category in categoryList"

@@ -2,9 +2,28 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 // 1. 导入组件库
-import Vant, { Toast } from 'vant'
-// 2. 引入组件 css 文件
-import 'vant/lib/index.css'
+// import Vant, { Toast } from 'vant'
+// // 2. 引入组件 css 文件
+// import 'vant/lib/index.css'
+// // 3. 注册 vant ui 组件库的标签
+// Vue.use(Vant)
+
+Vue.use(Tab)
+Vue.use(Tabs)
+Vue.use(List)
+Vue.use(Uploader)
+Vue.use(Dialog)
+Vue.use(Field)
+Vue.use(ActionSheet)
+Vue.use(Toast)
+import 'vant/lib/tab/style'
+import 'vant/lib/tabs/style'
+import 'vant/lib/list/style'
+import 'vant/lib/uploader/style'
+import 'vant/lib/dialog/style'
+import 'vant/lib/field/style'
+import 'vant/lib/action-sheet/style'
+import 'vant/lib/toast/style'
 
 // 引入axios
 import axios from 'axios'
@@ -50,12 +69,11 @@ axios.interceptors.response.use(res => {
 });
 Vue.config.productionTip = false
 
-// 3. 注册 vant ui 组件库的标签
-Vue.use(Vant)
 
 
 // 引入Vuex
 import Vuex from 'vuex'
+import { ActionSheet, Dialog, Field, List, Tab, Tabs, Toast, Uploader } from 'vant'
 Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
